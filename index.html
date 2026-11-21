@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Triport Properties | Real Estate & Land Investment Advisory</title>
+  <meta name="description" content="Every Route Leads to Growth. Land and investment advisory across the Tirupati-Naidupeta Growth Corridor in Andhra Pradesh, India.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-sky': '#38BDF8',
+            'brand-black': '#111111',
+            'brand-brown': '#5C4033',
+            'brand-dark': '#222222',
+          },
+          fontFamily: {
+            sans: ['Poppins', 'Inter', 'sans-serif'],
+            script: ['Caveat', 'cursive'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Poppins, Inter, Caveat (Matching Client Screenshot) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons & Babel for browser-direct execution -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body { font-family: 'Poppins', 'Inter', sans-serif; background-color: #ffffff; color: #222222; overflow-x: hidden; }
+    .client-script-title { font-family: 'Caveat', cursive; letter-spacing: 0.5px; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+
+    @keyframes marquee-stream {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+    .animate-marquee-stream {
+      display: flex;
+      width: max-content;
+      animation: marquee-stream 45s linear infinite;
+      will-change: transform;
+    }
+    .animate-marquee-stream:hover {
+      animation-play-state: paused;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // Triport Full-Stack Standalone Application
+    function App() {
+      const [currentRoute, setCurrentRoute] = useState('home');
+      const [modalOpen, setModalOpen] = useState(false);
+      const [modalSubject, setModalSubject] = useState('General Enquiry');
+      const [enquirySuccess, setEnquirySuccess] = useState(false);
+      const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+      // Listen to URL Hash / Path changes (Supports direct /admin access)
+      useEffect(() => {
+        const handleHash = () => {
+          if (window.location.pathname.startsWith('/admin')) {
+            setCurrentRoute('admin');
+            return;
+          }
+          const hash = window.location.hash.replace('#', '') || 'home';
+          setCurrentRoute(hash);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        window.addEventListener('hashchange', handleHash);
+        handleHash();
+        return () => window.removeEventListener('hashchange', handleHash);
+      }, []);
+
+      const navigate = (route) => {
+        window.location.hash = route;
+        setMobileMenuOpen(false);
+      };
+
+      const openEnquiry = (subject = 'General Enquiry') => {
+        setModalSubject(subject);
+        setModalOpen(true);
+      };
+
+      const handleEnquirySubmit = (e) => {
+        e.preventDefault();
+        setEnquirySuccess(true);
+        setTimeout(() => {
+          setEnquirySuccess(false);
+          setModalOpen(false);
+        }, 2200);
+      };
+
+      return (
+        <div className="min-h-screen flex flex-col bg-white">
+          {/* 1. STICKY WHITE HEADER - ENLARGED & GENEROUS BREATHING ROOM */}
+          <header className="sticky top-0 z-50 bg-white border-b border-zinc-200 py-3.5 sm:py-5 shadow-sm">
+            <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 flex items-center justify-between">
+              {/* Left: Prominent Logo with wide breathing gap to page buttons */}
+              <div className="flex items-center">
+                <a href="#home" className="flex items-center group py-1 mr-8 sm:mr-10 lg:mr-14 xl:mr-16 flex-shrink-0">
+                  <img
+                    src="./logo.png"
+                    alt="Triport Properties"
+                    className="h-16 sm:h-20 md:h-[88px] w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-sm"
+                  />
+                </a>
+
+                {/* Desktop Nav with 7 core pages */}
+                <nav className="hidden lg:flex items-center space-x-2 xl:space-x-3">
+                  {[
+                    { name: 'Home', r: 'home' },
+                    { name: 'About Us', r: 'about' },
+                    { name: 'Services', r: 'services' },
+                    { name: 'Projects', r: 'projects' },
+                    { name: 'NRI Services', r: 'nri' },
+                    { name: 'Contact Us', r: 'contact' }
+                  ].map((item) => (
+                    <button
+                      key={item.r}
+                      onClick={() => navigate(item.r)}
+                      className={`px-3.5 py-2 rounded-lg text-sm font-semibold transition-all whitespace-nowrap ${
+                        currentRoute === item.r ? 'bg-black text-white shadow-sm' : 'text-zinc-700 hover:bg-zinc-100 hover:text-[#38BDF8]'
+                      }`}
+                    >
+                      {item.name}
+                    </button>
+                  ))}
+                </nav>
+              </div>
+
+              {/* Header CTA */}
+              <div className="hidden sm:flex items-center space-x-3 flex-shrink-0 ml-4">
+                <button
+                  onClick={() => openEnquiry('Consultation Request')}
+                  className="bg-black hover:bg-zinc-800 text-white px-5 py-2.5 rounded-full text-xs font-semibold shadow-md transition-all flex items-center space-x-1.5"
+                >
+                  <span className="w-2 h-2 rounded-full bg-[#38BDF8] animate-pulse"></span>
+                  <span>Talk to an Advisor</span>
+                </button>
+              </div>
+
+              {/* Mobile Hamburger */}
+              <div className="lg:hidden flex items-center space-x-2">
+                <button
+                  onClick={() => openEnquiry('Advisor Call')}
+                  className="bg-black text-white px-3 py-1.5 rounded-lg text-xs font-bold sm:hidden"
+                >
+                  Advisor
+                </button>
+                <button
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  className="p-2 rounded-lg bg-zinc-900 text-white"
+                >
+                  ☰
+                </button>
+              </div>
+            </div>
+
+            {/* Mobile Drawer */}
+            {mobileMenuOpen && (
+              <div className="lg:hidden bg-white border-t border-zinc-200 px-4 py-3 space-y-1 shadow-xl">
+                {[
+                  { name: 'Home', r: 'home' },
+                  { name: 'About Us', r: 'about' },
+                  { name: 'Services', r: 'services' },
+                  { name: 'Projects', r: 'projects' },
+                  { name: 'Locations', r: 'locations' },
+                  { name: 'NRI Services', r: 'nri' },
+                  { name: 'Listings', r: 'listings' },
+                  { name: 'Investment Guide', r: 'guide' },
+                  { name: 'Corporate Land Bank', r: 'corporate' },
+                  { name: 'Insights', r: 'insights' },
+                  { name: 'Contact Us', r: 'contact' },
+                  { name: 'Admin Portal', r: 'admin' }
+                ].map((item) => (
+                  <button
+                    key={item.r}
+                    onClick={() => navigate(item.r)}
+                    className="block w-full text-left px-3 py-2 rounded-md font-semibold text-xs text-zinc-800 hover:bg-zinc-100"
+                  >
+                    {item.name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </header>
+
+          {/* MAIN CONTENT ROUTING */}
+          <main className="flex-1">
+            {currentRoute === 'home' && <HomePage openEnquiry={openEnquiry} navigate={navigate} />}
+            {currentRoute === 'about' && <AboutPage openEnquiry={openEnquiry} />}
+            {currentRoute === 'services' && <ServicesPage openEnquiry={openEnquiry} />}
+            {currentRoute === 'projects' && <ProjectsPage openEnquiry={openEnquiry} />}
+            {currentRoute === 'locations' && <LocationsPage />}
+            {currentRoute === 'nri' && <NRIPage openEnquiry={openEnquiry} />}
+            {currentRoute === 'listings' && <ListingsPage openEnquiry={openEnquiry} />}
+            {currentRoute === 'guide' && <GuidePage openEnquiry={openEnquiry} />}
+            {currentRoute === 'corporate' && <CorporatePage openEnquiry={openEnquiry} />}
+            {currentRoute === 'insights' && <InsightsPage />}
+            {currentRoute === 'contact' && <ContactPage />}
+            {currentRoute === 'admin' && <AdminPage />}
+          </main>
+
+          {/* RICH BROWN FOOTER */}
+          <footer className="bg-[#5C4033] text-white pt-14 pb-8 border-t-4 border-[#38BDF8]">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between pb-8 border-b border-[#7A5645] gap-4">
+                <div>
+                  <div className="mb-3">
+                    <a href="#home" className="inline-block group py-1" title="Triport Properties">
+                      <img src="./logo.png" alt="Triport Properties" className="h-14 sm:h-18 w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-[0_0_1px_rgba(255,255,255,0.7)]" />
+                    </a>
+                  </div>
+                  <p className="text-amber-200 text-sm mt-1 max-w-xl">Every Route Leads to Growth. Join the Growth Corridor.</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <a
+                    href="https://wa.me/919848012345"
+                    target="_blank"
+                    className="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2 rounded-full text-xs font-bold shadow"
+                  >
+                    WhatsApp Advisory
+                  </a>
+                  <button
+                    onClick={() => navigate('contact')}
+                    className="bg-[#38BDF8] text-black hover:bg-sky-300 px-5 py-2 rounded-full text-xs font-bold shadow"
+                  >
+                    Office Location
+                  </button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-xs text-amber-100/90">
+                <div>
+                  <h4 className="font-bold text-[#38BDF8] uppercase tracking-wider mb-3">About Us</h4>
+                  <p className="leading-relaxed">
+                    Land investment advisory based on the Tirupati-Naidupeta growth corridor. Ground reality audits, verified layout sanctions, and clean title deeds.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-[#38BDF8] uppercase tracking-wider mb-3">Land Options</h4>
+                  <ul className="space-y-1.5">
+                    <li><button onClick={() => navigate('services')} className="hover:underline">Residential Plots (TUDA)</button></li>
+                    <li><button onClick={() => navigate('services')} className="hover:underline">Highway Commercial Plots</button></li>
+                    <li><button onClick={() => navigate('services')} className="hover:underline">Fertile Farm Lands</button></li>
+                    <li><button onClick={() => navigate('services')} className="hover:underline">Corporate Land Banks</button></li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-[#38BDF8] uppercase tracking-wider mb-3">Growth Corridor</h4>
+                  <ul className="space-y-1.5">
+                    <li><button onClick={() => navigate('locations')} className="hover:underline">Tirupati Temple & Knowledge Hub</button></li>
+                    <li><button onClick={() => navigate('locations')} className="hover:underline">Naidupeta-Tada Industrial Belt</button></li>
+                    <li><button onClick={() => navigate('locations')} className="hover:underline">Tirupati Airport Expressway</button></li>
+                    <li><button onClick={() => navigate('locations')} className="hover:underline">Krishnapatnam Port Feeder</button></li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-[#38BDF8] uppercase tracking-wider mb-3">Advisory Desk</h4>
+                  <p className="leading-relaxed">Triport Tower, 3rd Floor, Alipiri - Renigunta Bypass Road, Tirupati, AP - 517501.</p>
+                  <p className="mt-2 font-bold text-white">Phone: +91 877 225 9988</p>
+                </div>
+              </div>
+
+              <div className="pt-6 border-t border-[#7A5645] text-[11px] text-amber-200/70 space-y-2">
+                <div className="p-3 bg-[#422D24] rounded-lg border border-[#7A5645] leading-relaxed">
+                  <strong>Statutory Disclaimer:</strong> Information on this site is for general guidance only and is not an offer to sell. Buyers should verify title, approvals and documents independently and consult a qualified lawyer before purchase.
+                </div>
+                <div className="flex justify-between items-center pt-2">
+                  <span>&copy; 2026 Triport Properties. All rights reserved.</span>
+                  <div className="flex items-center space-x-4 text-[11px] text-amber-200/80">
+                    <button onClick={() => navigate('about')} className="hover:underline">Privacy Policy</button>
+                    <span>•</span>
+                    <button onClick={() => navigate('about')} className="hover:underline">Terms of Use</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </footer>
+
+          {/* FLOATING WHATSAPP BUTTON */}
+          <aside aria-label="Contact options" className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center group pointer-events-auto">
+            <span className="hidden md:inline-block mr-3 px-3.5 py-1.5 bg-zinc-900/95 text-white text-xs font-semibold rounded-full shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap border border-zinc-700">
+              Chat on WhatsApp
+            </span>
+            <a
+              href="https://wa.me/919848012345?text=Hello%20Triport%20Properties%20team,%20I%20am%20interested%20in%20land%20investment%20options."
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Direct WhatsApp Chat"
+              className="relative flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-full shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none"
+            >
+              <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-75 animate-ping -z-10"></span>
+              <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current drop-shadow" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 6.46 17.5 2 12.04 2M12.05 20.16C10.57 20.16 9.12 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.16 12.05 20.16M16.56 14.39C16.31 14.27 15.09 13.67 14.86 13.58C14.64 13.5 14.47 13.46 14.31 13.7C14.15 13.95 13.68 14.5 13.53 14.66C13.39 14.83 13.25 14.85 13 14.73C12.75 14.6 11.7 14.26 10.45 13.15C9.48 12.28 8.83 11.21 8.65 10.89C8.47 10.58 8.63 10.41 8.76 10.28C8.87 10.17 9.01 9.99 9.14 9.84C9.27 9.69 9.31 9.58 9.39 9.42C9.47 9.25 9.43 9.11 9.37 8.99C9.31 8.86 8.82 7.66 8.62 7.17C8.42 6.69 8.22 6.75 8.06 6.74C7.92 6.73 7.76 6.73 7.59 6.73C7.43 6.73 7.16 6.79 6.93 7.04C6.71 7.29 6.09 7.87 6.09 9.05C6.09 10.23 6.95 11.37 7.07 11.53C7.19 11.7 8.76 14.11 11.17 15.15C11.74 15.4 12.19 15.55 12.53 15.66C13.11 15.84 13.63 15.82 14.05 15.76C14.52 15.69 15.49 15.17 15.69 14.6C15.89 14.03 15.89 13.54 15.83 13.44C15.77 13.34 15.61 13.28 15.36 13.16Z" />
+              </svg>
+            </a>
+          </aside>
+
+          {/* ENQUIRY MODAL */}
+          {modalOpen && (
+            <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+              <div className="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+                <div className="flex justify-between items-center pb-2 border-b">
+                  <h3 className="font-bold text-base text-zinc-900">{modalSubject}</h3>
+                  <button onClick={() => setModalOpen(false)} className="text-zinc-400 hover:text-black font-bold">✕</button>
+                </div>
+
+                {enquirySuccess ? (
+                  <div className="py-8 text-center space-y-2">
+                    <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-xl font-bold">✓</div>
+                    <h4 className="font-bold text-base text-zinc-900">Enquiry Received!</h4>
+                    <p className="text-xs text-zinc-500">Our senior advisor will call you on your phone/WhatsApp shortly.</p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleEnquirySubmit} className="space-y-3 text-xs">
+                    <div>
+                      <label className="block font-bold text-zinc-700 uppercase mb-1">Your Full Name *</label>
+                      <input type="text" required placeholder="e.g. Anand Varma" className="w-full px-3 py-2 border rounded-xl" />
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <label className="block font-bold text-zinc-700 uppercase mb-1">Phone Number *</label>
+                        <input type="tel" required placeholder="+91 98480 00000" className="w-full px-3 py-2 border rounded-xl" />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-zinc-700 uppercase mb-1">Email Address *</label>
+                        <input type="email" required placeholder="you@example.com" className="w-full px-3 py-2 border rounded-xl" />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block font-bold text-zinc-700 uppercase mb-1">Property Interested In</label>
+                      <select className="w-full px-3 py-2 border rounded-xl bg-white">
+                        <option>Residential Plots (TUDA Approved)</option>
+                        <option>Commercial Highway Plots</option>
+                        <option>Open Plots for Investment</option>
+                        <option>Fertile Farm Lands</option>
+                        <option>Corporate Land Banks</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block font-bold text-zinc-700 uppercase mb-1">Requirements / Questions *</label>
+                      <textarea required rows={3} placeholder="Tell us your budget and preferred corridor location..." className="w-full px-3 py-2 border rounded-xl" />
+                    </div>
+                    <button type="submit" className="w-full bg-[#111111] hover:bg-zinc-800 text-white py-3 rounded-xl font-bold text-xs shadow-md">
+                      Submit Consultation Request
+                    </button>
+                  </form>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // ======================== PAGE VIEWS ========================
+
+    // 1. HOME PAGE WITH 5 DYNAMIC PROPERTY SLIDES
+    function HomePage({ openEnquiry, navigate }) {
+      const [currentSlide, setCurrentSlide] = useState(0);
+
+      const heroSlides = [
+        {
+          id: 1,
+          badge: "Tirupati – Naidupeta Growth Corridor Advisory",
+          headline: "Every Route Leads to Growth",
+          subheadline: "Strategic land and investment advisory across Andhra Pradesh's premier corridor connecting temple towns, 6-lane expressways, international airports, and industrial ports.",
+          image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1920&q=80",
+          link: "projects",
+          btnText: "Explore Land Options"
+        },
+        {
+          id: 2,
+          badge: "TUDA & DTCP Approved Gated Layouts",
+          headline: "Secure Approved Residential Plots",
+          subheadline: "Vetted residential plots in high-demand residential layouts close to educational institutions, healthcare hubs, and Tirupati International Airport with 100% clean legal titles.",
+          image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80",
+          link: "services",
+          btnText: "Explore Residential Plots"
+        },
+        {
+          id: 3,
+          badge: "Naidupeta - Sullurpeta - Tada Belt",
+          headline: "Industrial & Corporate Land Banks",
+          subheadline: "Curated large-scale parcels for manufacturing, warehousing, and corporate expansions strategically situated along the Chennai-Kolkata NH-16 industrial corridor.",
+          image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80",
+          link: "projects",
+          btnText: "Corporate Land Banks"
+        },
+        {
+          id: 4,
+          badge: "Fertile Agricultural & Managed Agro Lands",
+          headline: "High-Yield Farmland Investment",
+          subheadline: "Fertile agricultural land with abundant groundwater, verified revenue records, and clear boundaries—perfect for weekend organic farming and capital appreciation.",
+          image: "https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&w=1920&q=80",
+          link: "services",
+          btnText: "Explore Farm Lands"
+        },
+        {
+          id: 5,
+          badge: "Port Connectivity & Coastal Trade Gateway",
+          headline: "Coastal Trade & Port Corridor Lands",
+          subheadline: "Direct access to Krishnapatnam, Dugarajapatnam, and Ramayapatnam deep-water ports driving industrial logistics and exponential commercial land appreciation.",
+          image: "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&w=1920&q=80",
+          link: "locations",
+          btnText: "Corridor Connectivity"
+        }
+      ];
+
+      useEffect(() => {
+        const timer = setInterval(() => {
+          setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+        }, 3500);
+        return () => clearInterval(timer);
+      }, []);
+
+      return (
+        <div className="space-y-0">
+          {/* 5-Slide Property Hero Carousel - Clear Images & Automatic Transitions */}
+          <section className="relative min-h-[560px] sm:min-h-[640px] flex items-center justify-center bg-zinc-950 text-white text-center px-4 overflow-hidden select-none">
+            {heroSlides.map((slide, idx) => (
+              <div
+                key={slide.id}
+                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                  currentSlide === idx ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                }`}
+              >
+                <img
+                  src={slide.image}
+                  alt={slide.headline}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
+
+            <div className="relative z-10 max-w-4xl mx-auto py-16 px-4 space-y-6">
+              <span className="inline-block bg-black/70 border border-[#38BDF8]/80 text-[#38BDF8] px-4 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase shadow-xl backdrop-blur-sm">
+                {heroSlides[currentSlide].badge}
+              </span>
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight drop-shadow-[0_4px_24px_rgba(0,0,0,1)]">
+                {heroSlides[currentSlide].headline}
+              </h1>
+              <p className="text-base sm:text-xl text-white font-medium max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_14px_rgba(0,0,0,1)]">
+                {heroSlides[currentSlide].subheadline}
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+                <button
+                  onClick={() => navigate(heroSlides[currentSlide].link)}
+                  className="w-full sm:w-auto bg-[#38BDF8] hover:bg-sky-400 text-black px-8 py-3.5 rounded-full font-bold text-sm shadow-2xl transition-transform hover:scale-105"
+                >
+                  {heroSlides[currentSlide].btnText} &rarr;
+                </button>
+                <button
+                  onClick={() => openEnquiry(heroSlides[currentSlide].badge)}
+                  className="w-full sm:w-auto bg-black/75 hover:bg-black border border-white/50 text-white px-8 py-3.5 rounded-full font-bold text-sm shadow-2xl"
+                >
+                  Talk to an Advisor
+                </button>
+              </div>
+
+              {/* Slide Indicators */}
+              <div className="flex items-center justify-center space-x-2 pt-4">
+                  {heroSlides.map((slide, idx) => (
+                    <button
+                      key={slide.id}
+                      onClick={() => setCurrentSlide(idx)}
+                      className={`transition-all duration-300 rounded-full ${
+                        currentSlide === idx ? 'w-8 h-2 bg-[#38BDF8]' : 'w-2 h-2 bg-white/40'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+            >
+              &#10095;
+            </button>
+          </section>
+
+          {/* BLACK HEADING BANNER: "About the company" (As in Client Screenshot) */}
+          <section className="bg-[#111111] text-white py-12 text-center border-y border-zinc-800">
+            <div className="max-w-4xl mx-auto px-4">
+              <h2 className="client-script-title text-4xl sm:text-5xl text-white font-normal mb-2">
+                About the company
+              </h2>
+              <p className="text-zinc-400 text-xs sm:text-sm font-light">
+                Triport Properties – Advisors for Land, Built on Local Knowledge and Verification.
+              </p>
+            </div>
+          </section>
+
+          {/* Intro Section */}
+          <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+              <div className="space-y-4">
+                <span className="text-xs uppercase font-bold text-[#38BDF8] tracking-widest bg-sky-50 px-3 py-1 rounded">
+                  Trusted Land Investment Advisory
+                </span>
+                <h3 className="text-3xl font-extrabold text-zinc-900 leading-tight">
+                  Your Trusted Partner in Land Investment
+                </h3>
+                <p className="text-zinc-600 text-sm leading-relaxed">
+                  Tri-Port Properties helps individuals, families and companies buy land with confidence. We advise on residential plots, commercial plots, open plots, open land for investment, farm land and land banks for companies, always with a clear view of location, connectivity and approvals.
+                </p>
+                <div className="p-4 rounded-xl bg-amber-50 border-l-4 border-amber-500 text-xs font-serif italic text-amber-950">
+                  "We recommend only the land we would be comfortable buying ourselves."
+                </div>
+              </div>
+              <div>
+                <img
+                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80"
+                  alt="Land Development"
+                  className="rounded-3xl shadow-xl w-full h-[320px] object-cover border border-zinc-200"
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* Why This Corridor Cards */}
+          <section className="py-16 bg-zinc-50 border-y border-zinc-200">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+              <div className="text-center max-w-2xl mx-auto">
+                <span className="text-xs font-bold uppercase text-[#38BDF8] tracking-widest block mb-1">Strategic Connectivity</span>
+                <h3 className="text-3xl font-extrabold text-zinc-900">Why This Corridor?</h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm hover:shadow-lg transition-all">
+                  <div className="w-12 h-12 bg-sky-50 text-[#38BDF8] rounded-xl flex items-center justify-center font-bold text-xl mb-4">🏛️</div>
+                  <h4 className="font-bold text-lg text-zinc-900 mb-2">Faith and Tourism</h4>
+                  <p className="text-xs text-zinc-600 leading-relaxed">
+                    Tirupati, one of India's most visited pilgrimage towns, creates steady demand for housing, hospitality and services.
+                  </p>
+                </div>
+                <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm hover:shadow-lg transition-all">
+                  <div className="w-12 h-12 bg-sky-50 text-[#38BDF8] rounded-xl flex items-center justify-center font-bold text-xl mb-4">🏭</div>
+                  <h4 className="font-bold text-lg text-zinc-900 mb-2">Industry</h4>
+                  <p className="text-xs text-zinc-600 leading-relaxed">
+                    The Naidupeta–Sullurpeta–Tada belt is one of Andhra Pradesh's major industrial corridors, housing multinational manufacturers and electronics hubs.
+                  </p>
+                </div>
+                <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm hover:shadow-lg transition-all">
+                  <div className="w-12 h-12 bg-sky-50 text-[#38BDF8] rounded-xl flex items-center justify-center font-bold text-xl mb-4">⚓</div>
+                  <h4 className="font-bold text-lg text-zinc-900 mb-2">Ports and Trade</h4>
+                  <p className="text-xs text-zinc-600 leading-relaxed">
+                    Krishnapatnam, Dugarajapatnam and Ramayapatnam ports link the region to coastal and export trade.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Featured Projects - 4 IN A ROW */}
+          <section className="py-16 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div className="flex justify-between items-end">
+              <div>
+                <span className="text-xs uppercase font-bold text-[#38BDF8] tracking-widest block mb-1">Verified Properties</span>
+                <h3 className="text-3xl font-extrabold text-zinc-900">Featured Corridor Projects</h3>
+              </div>
+              <button onClick={() => navigate('projects')} className="text-xs font-bold text-black hover:text-[#38BDF8]">
+                View All Projects &rarr;
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { name: 'Corridor Prime Greens', loc: 'Renigunta Airport Road', cat: 'Residential Plots', price: '₹18L - ₹42L', img: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80', status: 'TUDA Approved' },
+                { name: 'Naidupeta Commercial Vista', loc: 'NH-16 Junction, Naidupeta', cat: 'Commercial Plots', price: '₹45L - ₹1.8Cr', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80', status: 'Commercial Sanctioned' },
+                { name: 'Swarnamukhi Agro Orchards', loc: 'Srikalahasti - Yerpedu Belt', cat: 'Farm Lands', price: '₹28L/Acre', img: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=800&q=80', status: 'Pattadar Passbook Clear' },
+                { name: 'Sri City Peripheral Land Bank', loc: 'Tada - Sri City Industrial Zone', cat: 'Corporate Land Banks', price: '₹95L/Acre', img: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80', status: 'Industrial Zone' }
+              ].map((p, i) => (
+                <div key={i} className="bg-white rounded-2xl overflow-hidden border border-zinc-200 shadow-sm hover:shadow-xl transition-all">
+                  <div className="relative aspect-[16/10]">
+                    <img src={p.img} alt={p.name} className="w-full h-full object-cover" />
+                    <span className="absolute top-3 left-3 bg-black/80 text-[#38BDF8] text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">{p.cat}</span>
+                    <span className="absolute top-3 right-3 bg-emerald-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">{p.status}</span>
+                  </div>
+                  <div className="p-5 space-y-3">
+                    <span className="text-[11px] text-zinc-400 block">📍 {p.loc}</span>
+                    <h4 className="font-bold text-lg text-zinc-900">{p.name}</h4>
+                    <div className="flex justify-between items-center pt-2 border-t">
+                      <span className="text-base font-extrabold text-zinc-900">{p.price}</span>
+                      <button onClick={() => openEnquiry(p.name)} className="bg-[#38BDF8] text-black px-3.5 py-1.5 rounded-lg text-xs font-bold">Request Info</button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* BLACK HEADING BANNER: "Importance of the Triport city" (As in Client Screenshot) */}
+          <section className="bg-[#111111] text-white py-12 text-center border-y border-zinc-800">
+            <div className="max-w-4xl mx-auto px-4">
+              <h2 className="client-script-title text-4xl sm:text-5xl text-white font-normal mb-2">
+                Importance of the Triport city
+              </h2>
+              <p className="text-zinc-300 text-xs sm:text-sm font-light">
+                Multi-modal connectivity uniting the temple town, airport expressway, industrial cluster, and deep-water ports.
+              </p>
+            </div>
+          </section>
+
+          {/* CONTINUOUS STREAMING TESTIMONIALS SECTION: "Our Clients Speak" */}
+          <section className="py-20 bg-white overflow-hidden relative">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-center">
+              <span className="text-xs uppercase font-bold text-[#38BDF8] tracking-widest block mb-1">Authentic Client Experiences</span>
+              <h3 className="text-3xl font-extrabold text-zinc-900">Our Clients Speak</h3>
+              <p className="text-xs text-zinc-500 max-w-lg mx-auto mt-2">Continuous streaming reviews from 10+ verified property buyers and land investors across the growth corridor.</p>
+            </div>
+
+            {/* Video-style Continuous Marquee Reel */}
+            <div className="relative w-full overflow-hidden py-4">
+              <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
+              <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white via-white/80 to-transparent z-10" />
+
+              <div className="animate-marquee-stream flex space-x-6">
+                {[
+                  { name: 'Harsha Lanka', loc: 'Hyderabad, India', cat: 'Residential Plot', quote: 'Satish and team are absolutely wonderful to work with. It is like having a friend on the inside working for you. They responded fast all the time and got us the best plot under our budget.' },
+                  { name: 'Vinod Kumar E', loc: 'NRI Investor, Canada', cat: '2-Acre Parcel', quote: 'Buying the right plot in Andhra is never easy from Canada. But Triport team made it absolutely seamless with title checks, boundary stones, and video walkthroughs with complete clarity.' },
+                  { name: 'Hari Krishna P', loc: 'Industrial Vendor, Hyderabad', cat: 'Commercial Plot', quote: 'The team helped us with an open plot with clear title near the expansion corridor. They were extremely helpful, open, transparent, and reliable through the whole process.' },
+                  { name: 'Dr. K. Srinivas Rao', loc: 'Chief Surgeon, Bengaluru', cat: 'Gated Villa Plot', quote: 'Triport due diligence report saved us from a costly error on a disputed layout. We purchased a 350 sq. yard plot with full DTCP sanctions and spot registration.' },
+                  { name: 'Deepak & Ananya Sharma', loc: 'IT Directors, California USA', cat: 'Capital Investment', quote: 'Managing land purchases from Silicon Valley is typically stressful, but Triport provided GPS-mapped videos, survey numbers, and a 30-year link document audit.' },
+                  { name: 'R. Venkatasubbaiah', loc: 'Progressive Farmer, Nellore', cat: '5-Acre Farm Land', quote: 'I was looking for fertile farmland with steady borewell water. Triport inspected soil conditions, checked 1B revenue passbooks, and verified electricity connections.' },
+                  { name: 'Suresh C. Reddy', loc: 'Logistics Partner, Chennai', cat: '8-Acre Industrial Bank', quote: 'For our warehousing hub along Chennai-Kolkata corridor, Triport sourced contiguous land with direct 60ft frontage. Outstanding speed with industrial documentation.' },
+                  { name: 'Lakshmi Prasanna M', loc: 'Retd. Officer, Tirupati', cat: 'Airport Corridor Plot', quote: 'A genuine advisory firm that never forces a sale. They took the time to show my children all government layout sanctions and road widening master plans.' },
+                  { name: 'Rajesh Nair', loc: 'Supply Chain Head, Singapore', cat: 'Highway Commercial', quote: 'Their clarity on Krishnapatnam port link roads and industrial feeder highways helped us choose a prime asset with exceptional appreciation prospects.' },
+                  { name: 'B. Madhava Rao', loc: 'Enterprise Founder, Vijayawada', cat: 'Capital Growth Plots', quote: 'Over the last 20 years I have acquired various properties across Andhra Pradesh, but Triports boundary demarcation and title clarity report is hands-down the best.' },
+                  // Duplicated list for seamless infinite loop
+                  { name: 'Harsha Lanka', loc: 'Hyderabad, India', cat: 'Residential Plot', quote: 'Satish and team are absolutely wonderful to work with. It is like having a friend on the inside working for you. They responded fast all the time and got us the best plot under our budget.' },
+                  { name: 'Vinod Kumar E', loc: 'NRI Investor, Canada', cat: '2-Acre Parcel', quote: 'Buying the right plot in Andhra is never easy from Canada. But Triport team made it absolutely seamless with title checks, boundary stones, and video walkthroughs with complete clarity.' },
+                  { name: 'Hari Krishna P', loc: 'Industrial Vendor, Hyderabad', cat: 'Commercial Plot', quote: 'The team helped us with an open plot with clear title near the expansion corridor. They were extremely helpful, open, transparent, and reliable through the whole process.' },
+                  { name: 'Dr. K. Srinivas Rao', loc: 'Chief Surgeon, Bengaluru', cat: 'Gated Villa Plot', quote: 'Triport due diligence report saved us from a costly error on a disputed layout. We purchased a 350 sq. yard plot with full DTCP sanctions and spot registration.' },
+                  { name: 'Deepak & Ananya Sharma', loc: 'IT Directors, California USA', cat: 'Capital Investment', quote: 'Managing land purchases from Silicon Valley is typically stressful, but Triport provided GPS-mapped videos, survey numbers, and a 30-year link document audit.' }
+                ].map((t, idx) => (
+                  <div key={idx} className="w-[340px] sm:w-[380px] shrink-0 bg-white p-6 rounded-3xl border border-zinc-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-4">
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center text-xs">
+                        <span className="text-amber-400">★★★★★</span>
+                        <span className="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded-full border border-emerald-200">Verified</span>
+                      </div>
+                      <p className="text-xs text-zinc-700 leading-relaxed italic line-clamp-4">"{t.quote}"</p>
+                    </div>
+                    <div className="flex items-center space-x-3 pt-3 border-t">
+                      <div className="w-10 h-10 rounded-full bg-[#38BDF8] text-black font-extrabold flex items-center justify-center text-sm shadow-sm shrink-0">
+                        {t.name[0]}
+                      </div>
+                      <div className="min-w-0">
+                        <h5 className="font-bold text-xs text-zinc-900 truncate">{t.name}</h5>
+                        <span className="text-[10px] text-zinc-500 block truncate">{t.loc}</span>
+                        <span className="text-[9px] text-[#38BDF8] font-bold block truncate">{t.cat}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="text-center mt-4 text-[11px] text-zinc-400 flex items-center justify-center space-x-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>Live streaming customer feedback • Hover over any card to pause</span>
+            </div>
+          </section>
+
+          {/* CTA Banner */}
+          <section className="py-14 bg-black text-white text-center px-4">
+            <div className="max-w-2xl mx-auto space-y-4">
+              <h3 className="text-3xl font-bold">Not Sure Where to Invest?</h3>
+              <p className="text-zinc-300 text-xs sm:text-sm font-light">
+                Let our local experts help you identify the right land investment opportunity across the Tirupati-Naidupeta corridor.
+              </p>
+              <button
+                onClick={() => openEnquiry('Free Consultation')}
+                className="bg-[#38BDF8] text-black px-8 py-3 rounded-full font-bold text-xs shadow-lg hover:scale-105 transition-transform"
+              >
+                Book a Free Consultation
+              </button>
+            </div>
+          </section>
+        </div>
+      );
+    }
+
+    // 2. ABOUT US PAGE (WITH INTEGRATED IMPORTANCE OF THE TRIPORT CITY & LOCATIONS)
+    function AboutPage({ openEnquiry, navigate }) {
+      return (
+        <div className="space-y-12">
+          <section className="bg-[#111111] text-white py-14 text-center">
+            <h1 className="client-script-title text-4xl sm:text-5xl mb-2">About the company</h1>
+            <p className="text-zinc-400 text-xs sm:text-sm max-w-xl mx-auto">Advisors for Land, Built on Local Knowledge</p>
+          </section>
+
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div className="space-y-4 text-zinc-700 text-sm leading-relaxed">
+              <p className="text-base font-semibold text-zinc-900">
+                We are a land investment advisory based on the Tirupati–Naidupeta corridor. Our role is to help you make a sound decision, not just a sale. We explain the location, the infrastructure plans, the title and approval status, and the likely use of the land before you commit.
+              </p>
+              <div className="p-6 bg-amber-50 rounded-2xl border-l-4 border-amber-500 font-serif italic text-base text-amber-950">
+                "We recommend only the land we would be comfortable buying ourselves."
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+              <div className="p-5 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-2">
+                <span className="font-bold text-xs text-[#38BDF8] uppercase block">Approach 01</span>
+                <h4 className="font-bold text-zinc-900 text-sm">Plain-Language Advice</h4>
+                <p className="text-xs text-zinc-600">No high-pressure sales tactics. Clear breakdown of revenue land records.</p>
+              </div>
+              <div className="p-5 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-2">
+                <span className="font-bold text-xs text-[#38BDF8] uppercase block">Approach 02</span>
+                <h4 className="font-bold text-zinc-900 text-sm">Approval Verification</h4>
+                <p className="text-xs text-zinc-600">Checks on 30-year Encumbrance, TUDA/DTCP layout sanctions, and physical access.</p>
+              </div>
+              <div className="p-5 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-2">
+                <span className="font-bold text-xs text-[#38BDF8] uppercase block">Approach 03</span>
+                <h4 className="font-bold text-zinc-900 text-sm">Advice for All</h4>
+                <p className="text-xs text-zinc-600">Frameworks for individuals, families, farmers, corporates, and NRIs.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* INTEGRATED IMPORTANCE OF THE TRIPORT CITY BANNER & LOCATIONS */}
+          <section className="bg-[#111111] text-white py-14 text-center border-y border-zinc-800">
+            <h2 className="client-script-title text-4xl sm:text-5xl mb-2">Importance of the Triport city</h2>
+            <p className="text-zinc-400 text-xs sm:text-sm">Every Route Leads to Growth - Connected by highways, rail, air and sea.</p>
+          </section>
+
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 pb-16">
+            {[
+              { name: 'Tirupati', role: 'Temple Town, Hospitality & Education Hub', desc: 'Pilgrimage demand with over 25 million annual visitors, premier healthcare (SVIMS, Apollo), and knowledge institutions (IIT, IISER).', dist: '14 km to Airport | 68 km to Sri City' },
+              { name: 'Naidupeta - Sullurpeta - Tada', role: 'Industrial & Manufacturing Belt', desc: 'Economic backbone with multi-product SEZs, automotive production, and proximity to Sri City.', dist: '18 km to Sri City SEZ | 62 km to Krishnapatnam Port' },
+              { name: 'National Highways (NH-71 & NH-16)', role: 'Inter-State Commuter & Freight Arteries', desc: '4-lane and 6-lane paved arterial corridors enabling heavy transport at 100 km/h speeds.', dist: 'NH-71: 58 km Tirupati to Naidupeta' },
+              { name: 'Tirupati International Airport (TIR)', role: 'Domestic & Regional Passenger Terminal', desc: 'Garuda-themed integrated terminal with direct daily flights to Hyderabad, Bangalore, Mumbai, Delhi.', dist: 'Renigunta Road | 4 km to Railway Junction' },
+              { name: 'Ports (Krishnapatnam, Dugarajapatnam, Ramayapatnam)', role: 'Deep-Water Coastal Maritime Trade', desc: 'All-weather deep-water maritime trade handling containers, break-bulk, and exports.', dist: '62 km from Naidupeta' }
+            ].map((loc, i) => (
+              <div key={i} className="p-6 bg-white border border-zinc-200 rounded-2xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <span className="text-[11px] font-bold text-[#38BDF8] uppercase tracking-wider">{loc.role}</span>
+                  <h3 className="font-bold text-lg text-zinc-900">{loc.name}</h3>
+                  <p className="text-xs text-zinc-600 max-w-2xl leading-relaxed">{loc.desc}</p>
+                </div>
+                <div className="bg-zinc-50 border border-zinc-200 px-4 py-2 rounded-xl text-xs font-semibold text-zinc-700 whitespace-nowrap">
+                  {loc.dist}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    // 3. SERVICES PAGE
+    function ServicesPage({ openEnquiry }) {
+      const services = [
+        { name: 'Residential Plots', desc: 'Plots in developing layouts close to housing demand, schools and transport. Best for end-use or long-term family homes.', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80' },
+        { name: 'Commercial Plots', desc: 'Plots on main roads and near industrial and transport hubs, suited to shops, offices, warehouses and service businesses.', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80' },
+        { name: 'Open Plots', desc: 'Approved open plots for steady appreciation as surrounding areas develop.', img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80' },
+        { name: 'Open Land for Investment', desc: 'Larger parcels for long-term holding, with a clear view of future use and exit options.', img: 'https://images.unsplash.com/photo-1524813686514-a57563d77d66?auto=format&fit=crop&w=800&q=80' },
+        { name: 'Farm Lands', desc: 'Agricultural land for farming, orchards or future conversion, with checks on soil, water access and land-use rules.', img: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=800&q=80' },
+        { name: 'Land Bank for Companies', desc: 'Curated land banks for businesses planning factories, warehouses, logistics centres, hospitals or institutions.', img: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80' }
+      ];
+
+      return (
+        <div className="space-y-12 pb-16">
+          <section className="bg-[#111111] text-white py-14 text-center">
+            <h1 className="client-script-title text-4xl sm:text-5xl mb-2">Land Options for Every Investment Goal</h1>
+            <p className="text-zinc-400 text-xs sm:text-sm">Verified residential layouts, commercial highway plots, agro parcels, and corporate land banks.</p>
+          </section>
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((s, idx) => (
+              <div key={idx} className="bg-white rounded-2xl overflow-hidden border border-zinc-200 shadow-sm flex flex-col justify-between">
+                <div>
+                  <img src={s.img} alt={s.name} className="w-full h-44 object-cover" />
+                  <div className="p-5 space-y-2">
+                    <h3 className="font-bold text-lg text-zinc-900">{s.name}</h3>
+                    <p className="text-xs text-zinc-600 leading-relaxed">{s.desc}</p>
+                  </div>
+                </div>
+                <div className="p-5 pt-0">
+                  <button
+                    onClick={() => openEnquiry(s.name)}
+                    className="w-full bg-[#111111] hover:bg-zinc-800 text-white py-2 rounded-xl text-xs font-bold"
+                  >
+                    Enquire About {s.name}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    // 4. PROJECTS PAGE
+    function ProjectsPage({ openEnquiry }) {
+      return (
+        <div className="space-y-12 pb-16">
+          <section className="bg-[#111111] text-white py-14 text-center">
+            <h1 className="client-script-title text-4xl sm:text-5xl mb-2">Explore Land Opportunities Across the Corridor</h1>
+            <p className="text-zinc-400 text-xs sm:text-sm">Approved residential plots, highway commercial parcels, and institutional land banks.</p>
+          </section>
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                { name: 'Corridor Prime Greens', loc: 'Renigunta Airport Road', sizes: '167 - 400 Sq. Yards', price: '₹18 Lakhs - ₹42 Lakhs', approval: 'TUDA Approved LP: 38/2023', img: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80' },
+                { name: 'Naidupeta Logistics Vista', loc: 'NH-16 Junction, Naidupeta', sizes: '500 - 2,500 Sq. Yards', price: '₹45 Lakhs - ₹1.8 Crores', approval: 'Commercial Zoned Freehold', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80' },
+                { name: 'Swarnamukhi Agro Orchards', loc: 'Srikalahasti - Yerpedu Belt', sizes: '1 Acre to 5 Acres', price: '₹28 Lakhs / Acre', approval: '1B Webland Verified', img: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=800&q=80' },
+                { name: 'Sri City Peripheral Land Bank', loc: 'Tada - Sri City Growth Environs', sizes: '5 Acres to 50 Acres', price: 'Custom Corporate Pricing', approval: 'Industrial Zoning Feasible', img: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80' }
+              ].map((p, idx) => (
+                <div key={idx} className="bg-white rounded-2xl overflow-hidden border border-zinc-200 shadow-sm flex flex-col justify-between">
+                  <div>
+                    <img src={p.img} alt={p.name} className="w-full h-48 object-cover" />
+                    <div className="p-5 space-y-2">
+                      <span className="text-[11px] text-zinc-400">📍 {p.loc}</span>
+                      <h4 className="font-bold text-lg text-zinc-900">{p.name}</h4>
+                      <div className="bg-zinc-50 p-2.5 rounded-lg text-xs space-y-1">
+                        <div>Plot Sizes: <strong>{p.sizes}</strong></div>
+                        <div>Sanction: <strong className="text-emerald-700">{p.approval}</strong></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-5 pt-0 flex justify-between items-center">
+                    <span className="font-extrabold text-sm text-zinc-900">{p.price}</span>
+                    <button onClick={() => openEnquiry(p.name)} className="bg-[#38BDF8] text-black px-4 py-1.5 rounded-xl text-xs font-bold">Request Details</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // 5. LOCATIONS PAGE
+    function LocationsPage() {
+      return (
+        <div className="space-y-12 pb-16">
+          <section className="bg-[#111111] text-white py-14 text-center">
+            <h1 className="client-script-title text-4xl sm:text-5xl mb-2">Importance of the Triport city</h1>
+            <p className="text-zinc-400 text-xs sm:text-sm">Every Route Leads to Growth - Connected by highways, rail, air and sea.</p>
+          </section>
+
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            {[
+              { name: 'Tirupati', role: 'Temple Town, Hospitality & Education Hub', desc: 'Pilgrimage demand with over 25 million annual visitors, premier healthcare (SVIMS, Apollo), and knowledge institutions (IIT, IISER).', dist: '14 km to Airport | 68 km to Sri City' },
+              { name: 'Naidupeta - Sullurpeta - Tada', role: 'Industrial & Manufacturing Belt', desc: 'Economic backbone with multi-product SEZs, automotive production, and proximity to Sri City.', dist: '18 km to Sri City SEZ | 62 km to Krishnapatnam Port' },
+              { name: 'National Highways (NH-71 & NH-16)', role: 'Inter-State Commuter & Freight Arteries', desc: '4-lane and 6-lane paved arterial corridors enabling heavy transport at 100 km/h speeds.', dist: 'NH-71: 58 km Tirupati to Naidupeta' },
+              { name: 'Tirupati International Airport (TIR)', role: 'Domestic & Regional Passenger Terminal', desc: 'Garuda-themed integrated terminal with direct daily flights to Hyderabad, Bangalore, Mumbai, Delhi.', dist: 'Renigunta Road | 4 km to Railway Junction' },
+              { name: 'Ports (Krishnapatnam, Dugarajapatnam, Ramayapatnam)', role: 'Deep-Water Coastal Maritime Trade', desc: 'All-weather deep-water maritime trade handling containers, break-bulk, and exports.', dist: '62 km from Naidupeta' }
+            ].map((loc, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-white border border-zinc-200 shadow-sm space-y-2">
+                <span className="text-[10px] uppercase font-bold text-[#38BDF8] tracking-widest">{loc.role}</span>
+                <h3 className="font-bold text-xl text-zinc-900">{loc.name}</h3>
+                <p className="text-xs text-zinc-600 leading-relaxed">{loc.desc}</p>
+                <div className="pt-2 text-xs font-semibold text-zinc-800">Verified Distance: {loc.dist}</div>
+              </div>
+            ))}
+
+            <div className="p-4 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 leading-relaxed">
+              <strong>Official Disclaimer:</strong> Infrastructure projects can change. We share the latest official information, and we do not guarantee future prices.
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // 6. NRI PAGE
+    function NRIPage({ openEnquiry }) {
+      return (
+        <div className="space-y-12 pb-16">
+          <section className="bg-[#111111] text-white py-14 text-center">
+            <h1 className="client-script-title text-4xl sm:text-5xl mb-2">Your Trusted Land Partner in India</h1>
+            <p className="text-zinc-400 text-xs sm:text-sm">Invest in your roots with confidence across the Tirupati-Naidupeta Growth Corridor.</p>
+          </section>
+
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[
+                'Remote Zoom / Google Meet Property Consultation',
+                'Property Shortlisting & Tailored Portfolio',
+                'Virtual Property Tours & 4K Video Walkthroughs',
+                'Site Visit Coordination for Family in India',
+                'Title, 1B Adangal & 30-Year EC Verification',
+                'Coordination with High Court Civil Advocates',
+                'Power of Attorney (PoA) & Registration Support',
+                'Periodic Photographic Boundary & Stone Updates'
+              ].map((s, idx) => (
+                <div key={idx} className="p-4 bg-zinc-50 rounded-xl border border-zinc-200 text-xs font-semibold text-zinc-800 flex items-center space-x-2">
+                  <span className="text-[#38BDF8] font-bold">✓</span>
+                  <span>{s}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="p-6 bg-amber-50 border-2 border-amber-300 rounded-2xl text-xs text-amber-950 space-y-2 leading-relaxed">
+              <strong className="block text-sm uppercase tracking-wide">FEMA Legal Note for NRIs & OCIs:</strong>
+              <p>Under FEMA regulations and RBI guidelines, NRIs and OCIs can purchase any residential plots or commercial real estate without restriction. However, agricultural land, plantation property, and farmhouses have statutory purchase restrictions. Triport Properties steers all NRI clients strictly into compliant approved residential/commercial layouts.</p>
+            </div>
+
+            <div className="text-center pt-4">
+              <button
+                onClick={() => openEnquiry('NRI Advisory Consultation')}
+                className="bg-[#38BDF8] hover:bg-sky-400 text-black px-8 py-3 rounded-full font-bold text-xs shadow-lg"
+              >
+                Schedule NRI Consultation &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // 7. LISTINGS PAGE
+    function ListingsPage({ openEnquiry }) {
+      return (
+        <div className="space-y-12 pb-16">
+          <section className="bg-[#111111] text-white py-14 text-center">
+            <h1 className="client-script-title text-4xl sm:text-5xl mb-2">Available Land Options</h1>
+            <p className="text-zinc-400 text-xs sm:text-sm">Granular plot inventory separate from parent projects.</p>
+          </section>
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+            <div className="p-3 bg-sky-50 text-sky-950 rounded-xl text-xs font-semibold border border-sky-200 text-center">
+              Notice: Listings change often. Contact our advisory desk for the latest live inventory availability.
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { title: 'East Facing 200 Sq.yd Villa Plot', ref: 'Plot #18 (Phase 1)', loc: 'Renigunta Airport Road', price: '₹22,00,000', status: 'Available', facing: 'East' },
+                { title: 'Corner Commercial 450 Sq.yd Plot', ref: 'Plot #C-02', loc: 'Airport Expressway Sector', price: '₹67,50,000', status: 'Available', facing: 'Corner' },
+                { title: 'North Facing 167 Sq.yd Plot', ref: 'Plot #45', loc: 'Renigunta-Yerpedu Road', price: '₹18,37,000', status: 'Reserved', facing: 'North' },
+                { title: '1,000 Sq.yd NH-16 Commercial Site', ref: 'Plot #HP-01', loc: 'NH-16 Corridor, Naidupeta', price: '₹85,00,000', status: 'Available', facing: 'East' },
+                { title: '3-Acre Fertile Organic Farmland', ref: 'Survey #142/2A', loc: 'Swarnamukhi Basin', price: '₹84,00,000', status: 'Available', facing: 'East' },
+                { title: '240 Sq.yd Residential Plot', ref: 'Plot #08', loc: 'Renigunta Airport Road', price: '₹26,40,000', status: 'Sold', facing: 'West' }
+              ].map((item, idx) => (
+                <div key={idx} className="bg-white p-5 rounded-2xl border border-zinc-200 shadow-sm space-y-3 flex flex-col justify-between">
+                  <div>
+                    <div className="flex justify-between items-center text-xs">
+                      <span className="font-bold text-zinc-900">{item.ref}</span>
+                      <span className={`px-2 py-0.5 rounded-full font-bold text-[10px] ${
+                        item.status === 'Available' ? 'bg-emerald-100 text-emerald-800' :
+                        item.status === 'Reserved' ? 'bg-amber-100 text-amber-800' : 'bg-red-100 text-red-800'
+                      }`}>{item.status}</span>
+                    </div>
+                    <h4 className="font-bold text-sm text-zinc-900 mt-2">{item.title}</h4>
+                    <span className="text-zinc-500 text-xs block">📍 {item.loc}</span>
+                    <span className="text-xs bg-zinc-100 px-2 py-0.5 rounded text-zinc-700 font-medium inline-block mt-1">Facing: {item.facing}</span>
+                  </div>
+                  <div className="pt-3 border-t flex justify-between items-center">
+                    <span className="font-extrabold text-sm text-zinc-900">{item.price}</span>
+                    <button
+                      onClick={() => openEnquiry(item.title)}
+                      disabled={item.status === 'Sold'}
+                      className="bg-black disabled:bg-zinc-300 text-white px-3 py-1.5 rounded-lg text-xs font-bold"
+                    >
+                      {item.status === 'Sold' ? 'Sold Out' : 'Request Info'}
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // 7. GUIDE PAGE
+    function GuidePage({ openEnquiry }) {
+      return (
+        <div className="space-y-12 pb-16">
+          <section className="bg-[#111111] text-white py-14 text-center">
+            <h1 className="client-script-title text-4xl sm:text-5xl mb-2">How We Help You Invest Safely</h1>
+            <p className="text-zinc-400 text-xs sm:text-sm">Our 5-step transparent due diligence and advisory framework.</p>
+          </section>
+
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+            {[
+              { num: 'Step 1', title: 'Tell Us Your Goal', desc: 'Home, business, farming, or long-term capital holding.' },
+              { num: 'Step 2', title: 'Shortlist Locations', desc: 'We match your budget and purpose to the right part of the corridor.' },
+              { num: 'Step 3', title: 'Verify the Land', desc: 'Title check, 30-year encumbrance check, layout approval and boundary survey.' },
+              { num: 'Step 4', title: 'Visit With Us', desc: 'Site visit with local guidance on access, neighbours and future development.' },
+              { num: 'Step 5', title: 'Complete the Purchase', desc: 'Registration support and document checklist, with a qualified lawyer recommended for final sign-off.' }
+            ].map((step, idx) => (
+              <div key={idx} className="p-6 bg-zinc-50 border border-zinc-200 rounded-2xl flex items-start space-x-4">
+                <div className="w-10 h-10 rounded-full bg-black text-[#38BDF8] flex items-center justify-center font-bold text-sm shrink-0">
+                  {idx + 1}
+                </div>
+                <div>
+                  <span className="text-[10px] uppercase font-bold text-[#38BDF8] tracking-widest">{step.num}</span>
+                  <h4 className="font-bold text-base text-zinc-900">{step.title}</h4>
+                  <p className="text-xs text-zinc-600 mt-1 leading-relaxed">{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    // 8. CORPORATE PAGE
+    function CorporatePage({ openEnquiry }) {
+      return (
+        <div className="space-y-12 pb-16">
+          <section className="bg-[#111111] text-white py-14 text-center">
+            <h1 className="client-script-title text-4xl sm:text-5xl mb-2">Land Banks for Growing Businesses</h1>
+            <p className="text-zinc-400 text-xs sm:text-sm">We help companies secure land ahead of expansion.</p>
+          </section>
+
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 text-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+              <div className="p-5 bg-zinc-50 rounded-2xl border border-zinc-200">
+                <h4 className="font-bold text-sm text-zinc-900">01. Requirement Study</h4>
+                <p className="text-xs text-zinc-600 mt-1">Land size, road access (60ft+), utilities, and zoning alignment with APIIC.</p>
+              </div>
+              <div className="p-5 bg-zinc-50 rounded-2xl border border-zinc-200">
+                <h4 className="font-bold text-sm text-zinc-900">02. Shortlisting & Site Visits</h4>
+                <p className="text-xs text-zinc-600 mt-1">Topographical survey, flood level assessment, heavy transport access.</p>
+              </div>
+              <div className="p-5 bg-zinc-50 rounded-2xl border border-zinc-200">
+                <h4 className="font-bold text-sm text-zinc-900">03. Due Diligence Coordination</h4>
+                <p className="text-xs text-zinc-600 mt-1">30-year Encumbrance, revenue title examination, and single boundary checks.</p>
+              </div>
+              <div className="p-5 bg-zinc-50 rounded-2xl border border-zinc-200">
+                <h4 className="font-bold text-sm text-zinc-900">04. Negotiation Support</h4>
+                <p className="text-xs text-zinc-600 mt-1">Land parcel aggregation with transparent legal milestone structuring.</p>
+              </div>
+            </div>
+
+            <button
+              onClick={() => openEnquiry('Corporate Land Bank Requirement')}
+              className="bg-[#38BDF8] text-black px-8 py-3 rounded-full font-bold text-xs shadow-lg mt-4"
+            >
+              Discuss Your Requirement &rarr;
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    // 9. INSIGHTS PAGE
+    function InsightsPage() {
+      return (
+        <div className="space-y-12 pb-16">
+          <section className="bg-[#111111] text-white py-14 text-center">
+            <h1 className="client-script-title text-4xl sm:text-5xl mb-2">Insights Into Land and Regional Growth</h1>
+            <p className="text-zinc-400 text-xs sm:text-sm">Verified infrastructure updates, buying checklists, and land-use basics.</p>
+          </section>
+
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="p-6 bg-white rounded-2xl border border-zinc-200 shadow-sm space-y-3">
+              <span className="text-[10px] uppercase font-bold text-[#38BDF8] tracking-widest">Infrastructure Updates</span>
+              <h3 className="font-bold text-lg text-zinc-900">Tirupati-Naidupeta Growth Corridor: Why Infrastructure Drives Value</h3>
+              <p className="text-xs text-zinc-600 leading-relaxed">
+                An analysis of NH-71 widening, Renigunta electronics cluster, and how port feeder highways are transforming Rayalaseema into an east-coast economic gateway.
+              </p>
+              <div className="text-[11px] text-emerald-700 font-semibold pt-2 border-t">
+                ✓ Official Sources Cited: NHAI (nhai.gov.in) & TUDA (tudaap.in)
+              </div>
+            </div>
+
+            <div className="p-6 bg-white rounded-2xl border border-zinc-200 shadow-sm space-y-3">
+              <span className="text-[10px] uppercase font-bold text-[#38BDF8] tracking-widest">Buying Checklists</span>
+              <h3 className="font-bold text-lg text-zinc-900">5 Document Verification Steps Every Land Buyer in AP Must Know</h3>
+              <p className="text-xs text-zinc-600 leading-relaxed">
+                A practical, lawyer-backed guide to checking Encumbrance Certificates, 1B Adangal records, Webland passbooks, and layout approval sanctions.
+              </p>
+              <div className="text-[11px] text-emerald-700 font-semibold pt-2 border-t">
+                ✓ Official Sources Cited: AP IGRS Registration & AP Meebhoomi Portal
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // 10. CONTACT PAGE
+    function ContactPage() {
+      const [submitted, setSubmitted] = useState(false);
+      return (
+        <div className="space-y-12 pb-16">
+          <section className="bg-[#111111] text-white py-14 text-center">
+            <h1 className="client-script-title text-4xl sm:text-5xl mb-2">Let's Talk About Your Land Goals</h1>
+            <p className="text-zinc-400 text-xs sm:text-sm">Reach our senior property advisors across the Tirupati-Naidupeta Growth Corridor.</p>
+          </section>
+
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="space-y-6">
+              <div className="p-5 bg-zinc-50 rounded-2xl border border-zinc-200 space-y-1">
+                <span className="text-[10px] uppercase font-bold text-zinc-400">Office Location</span>
+                <h4 className="font-bold text-sm text-zinc-900">Triport Advisory Headquarters</h4>
+                <p className="text-xs text-zinc-600 leading-relaxed">Triport Tower, 3rd Floor, Near Regional Science Centre, Alipiri - Renigunta Bypass Road, Tirupati, AP - 517501.</p>
+              </div>
+
+              <div className="p-5 bg-zinc-50 rounded-2xl border border-zinc-200 space-y-1">
+                <span className="text-[10px] uppercase font-bold text-zinc-400">Direct Contact</span>
+                <div>Phone: <strong>+91 877 225 9988</strong></div>
+                <div>WhatsApp: <strong>+91 98480 12345</strong></div>
+                <div>Email: <strong>advisory@triportproperties.com</strong></div>
+              </div>
+
+              <div className="p-5 bg-emerald-50 rounded-2xl border border-emerald-300 flex items-center justify-between">
+                <div>
+                  <h5 className="font-bold text-xs text-emerald-950">Instant WhatsApp Chat</h5>
+                  <p className="text-[11px] text-emerald-800">Direct plot inventory queries</p>
+                </div>
+                <a href="https://wa.me/919848012345" target="_blank" className="bg-emerald-600 text-white px-4 py-2 rounded-full text-xs font-bold">
+                  Chat Now
+                </a>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-3xl border border-zinc-200 shadow-lg">
+              <h4 className="font-bold text-base text-zinc-900 mb-4 pb-2 border-b">Send an Advisory Request</h4>
+              {submitted ? (
+                <div className="py-12 text-center text-emerald-600 font-bold text-sm">
+                  ✓ Thank you! Enquiry submitted successfully. Our advisor will call you shortly.
+                </div>
+              ) : (
+                <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} className="space-y-3 text-xs">
+                  <div>
+                    <label className="block font-bold text-zinc-700 uppercase mb-1">Full Name *</label>
+                    <input type="text" required placeholder="Your Name" className="w-full px-3 py-2 border rounded-xl" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="block font-bold text-zinc-700 uppercase mb-1">Phone *</label>
+                      <input type="tel" required placeholder="+91 98480 00000" className="w-full px-3 py-2 border rounded-xl" />
+                    </div>
+                    <div>
+                      <label className="block font-bold text-zinc-700 uppercase mb-1">Email *</label>
+                      <input type="email" required placeholder="name@domain.com" className="w-full px-3 py-2 border rounded-xl" />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block font-bold text-zinc-700 uppercase mb-1">Interested In</label>
+                    <select className="w-full px-3 py-2 border rounded-xl bg-white">
+                      <option>Residential Plots</option>
+                      <option>Commercial Plots</option>
+                      <option>Open Plots</option>
+                      <option>Open Land for Investment</option>
+                      <option>Farm Lands</option>
+                      <option>Land Bank for Companies</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block font-bold text-zinc-700 uppercase mb-1">Your Message *</label>
+                    <textarea required rows={3} placeholder="Tell us about your requirements..." className="w-full px-3 py-2 border rounded-xl" />
+                  </div>
+                  <button type="submit" className="w-full bg-[#111111] hover:bg-zinc-800 text-white py-3 rounded-xl font-bold">
+                    Send Enquiry
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // 11. ADMIN DASHBOARD
+    function AdminPage() {
+      const [isLoggedIn, setIsLoggedIn] = useState(false);
+      const [email, setEmail] = useState('admin@triportproperties.com');
+      const [password, setPassword] = useState('admin123');
+      const [tab, setTab] = useState('enquiries');
+
+      const handleLogin = (e) => {
+        e.preventDefault();
+        if (password === 'admin123') {
+          setIsLoggedIn(true);
+        } else {
+          alert('Invalid password. Default is admin123');
+        }
+      };
+
+      if (!isLoggedIn) {
+        return (
+          <div className="py-20 flex justify-center px-4 bg-zinc-950 text-white min-h-[500px] items-center">
+            <div className="max-w-sm w-full bg-zinc-900 p-8 rounded-3xl border border-zinc-800 space-y-4">
+              <div className="text-center">
+                <div className="w-12 h-12 bg-[#38BDF8] text-black font-extrabold rounded-2xl flex items-center justify-center mx-auto text-xl mb-2">TP</div>
+                <h3 className="font-bold text-xl">Triport Admin Portal</h3>
+                <p className="text-xs text-zinc-400">Default: admin@triportproperties.com / admin123</p>
+              </div>
+              <form onSubmit={handleLogin} className="space-y-3 text-xs">
+                <div>
+                  <label className="block font-bold uppercase mb-1 text-zinc-300">Admin Email</label>
+                  <input type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-xl" />
+                </div>
+                <div>
+                  <label className="block font-bold uppercase mb-1 text-zinc-300">Password</label>
+                  <input type="password" value={password} onChange={e => setPassword(e.target.value)} className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-xl" />
+                </div>
+                <button type="submit" className="w-full bg-[#38BDF8] text-black py-2.5 rounded-xl font-bold">
+                  Sign In to Control Panel
+                </button>
+              </form>
+            </div>
+          </div>
+        );
+      }
+
+      return (
+        <div className="max-w-6xl mx-auto px-4 py-10 space-y-6">
+          <div className="flex justify-between items-center pb-4 border-b">
+            <div>
+              <h2 className="text-2xl font-bold text-zinc-900">Admin Control Panel</h2>
+              <p className="text-xs text-zinc-500">Live Management Console for Triport Properties</p>
+            </div>
+            <button onClick={() => setIsLoggedIn(false)} className="bg-red-50 text-red-600 px-3 py-1.5 rounded-lg text-xs font-bold">Sign Out</button>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="p-4 bg-white border rounded-2xl shadow-sm">
+              <span className="text-[10px] uppercase font-bold text-zinc-400">Total Projects</span>
+              <div className="text-2xl font-black text-zinc-900">4</div>
+            </div>
+            <div className="p-4 bg-white border rounded-2xl shadow-sm">
+              <span className="text-[10px] uppercase font-bold text-zinc-400">Total Listings</span>
+              <div className="text-2xl font-black text-zinc-900">6</div>
+            </div>
+            <div className="p-4 bg-white border rounded-2xl shadow-sm">
+              <span className="text-[10px] uppercase font-bold text-zinc-400">Available Plots</span>
+              <div className="text-2xl font-black text-emerald-600">4</div>
+            </div>
+            <div className="p-4 bg-white border rounded-2xl shadow-sm">
+              <span className="text-[10px] uppercase font-bold text-zinc-400">Total Enquiries</span>
+              <div className="text-2xl font-black text-[#38BDF8]">12</div>
+            </div>
+          </div>
+
+          <div className="bg-white p-6 rounded-2xl border shadow-sm space-y-4">
+            <div className="flex justify-between items-center">
+              <h3 className="font-bold text-base text-zinc-900">Customer Enquiries & Investor Leads</h3>
+              <a href="http://localhost:5050/api/enquiries/export-csv" target="_blank" className="text-xs bg-black text-white px-3 py-1.5 rounded-lg font-bold">
+                Export CSV
+              </a>
+            </div>
+
+            <div className="overflow-x-auto text-xs">
+              <table className="w-full text-left">
+                <thead className="bg-zinc-50 border-b text-zinc-500 font-semibold uppercase text-[10px]">
+                  <tr>
+                    <th className="p-3">Customer</th>
+                    <th className="p-3">Contact</th>
+                    <th className="p-3">Category</th>
+                    <th className="p-3">Budget</th>
+                    <th className="p-3">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y text-zinc-700">
+                  <tr>
+                    <td className="p-3 font-bold">Suresh Babu</td>
+                    <td className="p-3">+91 98480 33445</td>
+                    <td className="p-3">Residential Plots</td>
+                    <td className="p-3">₹20L - ₹35L</td>
+                    <td className="p-3"><span className="bg-sky-100 text-[#38BDF8] px-2 py-0.5 rounded font-bold">New</span></td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 font-bold">Anand Varma (NRI, USA)</td>
+                    <td className="p-3">+1 408 555 0199</td>
+                    <td className="p-3">NRI Advisory</td>
+                    <td className="p-3">₹40L - ₹80L</td>
+                    <td className="p-3"><span className="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">Contacted</span></td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 font-bold">Apex Logistics India</td>
+                    <td className="p-3">+91 99000 00000</td>
+                    <td className="p-3">Corporate Land Bank</td>
+                    <td className="p-3">15 Acres</td>
+                    <td className="p-3"><span className="bg-purple-100 text-purple-800 px-2 py-0.5 rounded font-bold">Interested</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
