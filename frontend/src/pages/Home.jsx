@@ -523,79 +523,40 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Right Column: 4 Floating Dark Engine Cards matching PDF Page 1 */}
-            <div className="lg:col-span-5 pt-4 lg:pt-0">
-              {/* Mobile Swipeable Carousel (< lg) */}
-              <div className="flex lg:hidden overflow-x-auto pb-2 gap-3 snap-x snap-mandatory no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
-                {growthEngines.map((engine, idx) => {
-                  const isActive = activeEngine === idx;
-                  return (
-                    <div
-                      key={engine.id}
-                      onClick={() => setActiveEngine(idx)}
-                      className={`min-w-[270px] max-w-[310px] p-4 rounded-2xl cursor-pointer transition-all border backdrop-blur-md snap-start flex-shrink-0 ${
-                        isActive
-                          ? 'bg-[#0B1528]/95 border-[#10B981] shadow-xl ring-1 ring-[#10B981]/50'
-                          : 'bg-[#0B1528]/75 border-white/10 hover:bg-[#0B1528]/85'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2.5">
-                          <span
-                            className="w-2.5 h-2.5 rounded-full flex-shrink-0 shadow-sm"
-                            style={{ backgroundColor: engine.dotColor }}
-                          />
-                          <h3 className="font-bold text-sm text-white">
-                            {engine.name}
-                          </h3>
-                        </div>
-                        <span className="text-xs font-mono font-semibold text-slate-400">
-                          {engine.id}
-                        </span>
+            {/* Right Column: 4 Floating Dark Engine Cards (Down by down / stacked on both mobile and desktop) */}
+            <div className="lg:col-span-5 pt-4 lg:pt-0 space-y-3 sm:space-y-3.5">
+              {growthEngines.map((engine, idx) => {
+                const isActive = activeEngine === idx;
+                return (
+                  <div
+                    key={engine.id}
+                    onClick={() => setActiveEngine(idx)}
+                    className={`w-full p-4 sm:p-5 rounded-2xl cursor-pointer transition-all border backdrop-blur-md ${
+                      isActive
+                        ? 'bg-[#0B1528]/95 border-[#10B981] shadow-2xl translate-x-1 ring-1 ring-[#10B981]/50'
+                        : 'bg-[#0B1528]/75 border-white/10 hover:bg-[#0B1528]/90 hover:border-white/20'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <span
+                          className="w-3 h-3 rounded-full flex-shrink-0 shadow-sm"
+                          style={{ backgroundColor: engine.dotColor }}
+                        />
+                        <h3 className="font-bold text-sm sm:text-base text-white">
+                          {engine.name}
+                        </h3>
                       </div>
-                      <p className="text-xs text-slate-300 pl-5 pt-1 line-clamp-2">
-                        {engine.subtitle}
-                      </p>
+                      <span className="text-xs font-mono font-semibold text-slate-400">
+                        {engine.id}
+                      </span>
                     </div>
-                  );
-                })}
-              </div>
-
-              {/* Desktop Vertical 4-Card Stack (>= lg) */}
-              <div className="hidden lg:block space-y-3.5">
-                {growthEngines.map((engine, idx) => {
-                  const isActive = activeEngine === idx;
-                  return (
-                    <div
-                      key={engine.id}
-                      onClick={() => setActiveEngine(idx)}
-                      className={`p-4 sm:p-5 rounded-2xl cursor-pointer transition-all border backdrop-blur-md ${
-                        isActive
-                          ? 'bg-[#0B1528]/90 border-[#10B981] shadow-2xl translate-x-1.5 ring-1 ring-[#10B981]/50'
-                          : 'bg-[#0B1528]/70 border-white/10 hover:bg-[#0B1528]/85 hover:border-white/20'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <span
-                            className="w-3 h-3 rounded-full flex-shrink-0 shadow-sm"
-                            style={{ backgroundColor: engine.dotColor }}
-                          />
-                          <h3 className="font-bold text-sm sm:text-base text-white">
-                            {engine.name}
-                          </h3>
-                        </div>
-                        <span className="text-xs font-mono font-semibold text-slate-400">
-                          {engine.id}
-                        </span>
-                      </div>
-                      <p className="text-xs text-slate-300 pl-6 pt-1">
-                        {engine.subtitle}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
+                    <p className="text-xs sm:text-xs text-slate-300 pl-6 pt-1 leading-relaxed">
+                      {engine.subtitle}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
