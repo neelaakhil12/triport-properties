@@ -63,17 +63,17 @@ const Header = () => {
           <div className="flex items-center justify-between">
             {/* Left: Client Logo + Tagline matching PDF exactly */}
             <div className="flex items-center min-w-0">
-              <Link to="/" className="flex flex-col items-center group py-0.5 mr-4 sm:mr-8 lg:mr-10 xl:mr-14 flex-shrink-0 text-center">
+              <Link to="/" className="flex flex-col items-center group py-0.5 mr-4 sm:mr-8 lg:mr-10 xl:mr-12 flex-shrink-0 text-center">
                 <img
                   src="/logo.png"
                   alt="Triport Properties"
-                  className="h-9 sm:h-11 md:h-12 lg:h-[50px] w-auto object-contain group-hover:scale-102 transition-transform drop-shadow-md"
+                  className="h-14 sm:h-16 md:h-20 lg:h-[82px] xl:h-[90px] w-auto object-contain group-hover:scale-102 transition-transform drop-shadow-lg"
                 />
-                <div className="text-center pt-0.5 leading-tight select-none">
-                  <div className="text-[10px] sm:text-[11px] font-bold text-white tracking-tight">
+                <div className="text-center pt-1 leading-tight select-none">
+                  <div className="text-xs sm:text-[13px] md:text-sm font-bold text-white tracking-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
                     Every Route Leads to Growth
                   </div>
-                  <div className="text-[9px] sm:text-[10px] font-black text-[#FF6B00] tracking-tight">
+                  <div className="text-[11px] sm:text-xs md:text-[13px] font-black text-[#FF6B00] tracking-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
                     Join the Growth Corridor
                   </div>
                 </div>

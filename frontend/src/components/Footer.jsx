@@ -36,13 +36,13 @@ const Footer = () => {
               <img
                 src="/logo.png"
                 alt="Triport Properties"
-                className="h-11 sm:h-13 w-auto object-contain drop-shadow-sm"
+                className="h-16 sm:h-20 md:h-24 w-auto object-contain drop-shadow-md"
               />
-              <div className="pt-1.5 leading-tight select-none">
-                <div className="text-[11px] sm:text-[12px] font-bold text-white tracking-tight">
+              <div className="pt-2 leading-tight select-none">
+                <div className="text-xs sm:text-[13px] md:text-sm font-bold text-white tracking-tight">
                   Every Route Leads to Growth
                 </div>
-                <div className="text-[10px] sm:text-[11px] font-black text-[#FF6B00] tracking-tight">
+                <div className="text-[11px] sm:text-xs md:text-[13px] font-black text-[#FF6B00] tracking-tight">
                   Join the Growth Corridor
                 </div>
               </div>
