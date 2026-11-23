@@ -13,7 +13,7 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 30);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -53,22 +53,30 @@ const Header = () => {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 transition-all duration-300 ${
+        className={`w-full transition-all duration-300 z-50 ${
           isScrolled
-            ? 'bg-white/95 backdrop-blur-xl shadow-lg py-2.5 border-b border-slate-200/80'
-            : 'bg-white/90 backdrop-blur-xl py-3.5 sm:py-4 border-b border-slate-200/60 shadow-md'
+            ? 'fixed top-0 left-0 right-0 bg-[#0B1528]/95 backdrop-blur-md shadow-xl py-3 border-b border-slate-800'
+            : 'absolute top-0 left-0 right-0 bg-transparent py-4 sm:py-6'
         }`}
       >
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
           <div className="flex items-center justify-between">
-            {/* Left: Client Logo - 100% Crisp & High-Contrast on Glassy White Background */}
+            {/* Left: Client Logo + Tagline matching PDF exactly */}
             <div className="flex items-center min-w-0">
-              <Link to="/" className="flex items-center group py-0.5 mr-4 sm:mr-8 lg:mr-10 xl:mr-14 flex-shrink-0">
+              <Link to="/" className="flex flex-col items-center group py-0.5 mr-4 sm:mr-8 lg:mr-10 xl:mr-14 flex-shrink-0 text-center">
                 <img
-                  src="/logo.png"
-                  alt="Triport Properties - Every Route Leads to Growth"
-                  className="h-11 sm:h-14 md:h-16 lg:h-[72px] w-auto object-contain group-hover:scale-102 transition-transform drop-shadow-sm"
+                  src="/logo-white.png"
+                  alt="Triport Properties"
+                  className="h-9 sm:h-11 md:h-12 lg:h-[50px] w-auto object-contain group-hover:scale-102 transition-transform drop-shadow-md"
                 />
+                <div className="text-center pt-0.5 leading-tight select-none">
+                  <div className="text-[10px] sm:text-[11px] font-bold text-white tracking-tight">
+                    Every Route Leads to Growth
+                  </div>
+                  <div className="text-[9px] sm:text-[10px] font-black text-[#FF6B00] tracking-tight">
+                    Join the Growth Corridor
+                  </div>
+                </div>
               </Link>
 
               {/* Desktop Navigation (Exact 7 Links from PDF) */}
@@ -81,10 +89,10 @@ const Header = () => {
                     <Link
                       key={link.name}
                       to={link.path}
-                      className={`px-3 py-2 xl:px-3.5 xl:py-2 rounded-lg text-sm transition-all whitespace-nowrap font-bold ${
+                      className={`px-3 py-1.5 xl:px-3.5 xl:py-1.5 rounded-lg text-sm transition-all whitespace-nowrap font-medium ${
                         isActive
-                          ? 'text-[#FF6B00] border-b-2 border-[#FF6B00] rounded-none'
-                          : 'text-slate-800 hover:text-[#FF6B00] hover:bg-slate-100/60'
+                          ? 'text-white font-semibold border-b-2 border-[#FF6B00] rounded-none'
+                          : 'text-white/85 hover:text-white hover:bg-white/10'
                       }`}
                     >
                       {link.name}
@@ -94,7 +102,7 @@ const Header = () => {
               </nav>
             </div>
 
-            {/* Right: CTA Button - "Book a Free Consultation" in vibrant orange */}
+            {/* Right: CTA Button - "Book a Free Consultation" in vibrant orange matching PDF */}
             <div className="hidden lg:flex items-center space-x-3 flex-shrink-0 ml-3">
               <button
                 onClick={() => setEnquiryModalOpen(true)}
@@ -115,18 +123,18 @@ const Header = () => {
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-lg text-slate-800 hover:bg-slate-100 focus:outline-none transition-colors"
+                className="p-2 rounded-lg text-white hover:bg-white/10 focus:outline-none transition-colors"
                 aria-label="Toggle navigation menu"
               >
-                {mobileMenuOpen ? <X className="w-6 h-6 text-slate-900" /> : <Menu className="w-6 h-6 text-slate-900" />}
+                {mobileMenuOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Slide-down Drawer (Glassy Modal Style) */}
+        {/* Mobile Slide-down Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white/95 backdrop-blur-2xl border-b border-slate-200 px-4 pt-3 pb-6 space-y-2 shadow-2xl animate-in slide-in-from-top-3 duration-200">
+          <div className="lg:hidden bg-[#0B1528]/95 backdrop-blur-2xl border-b border-slate-800 px-4 pt-3 pb-6 space-y-2 shadow-2xl animate-in slide-in-from-top-3 duration-200">
             <nav className="flex flex-col space-y-1">
               {navLinks.map((link) => {
                 const isActive =
@@ -139,8 +147,8 @@ const Header = () => {
                     onClick={() => setMobileMenuOpen(false)}
                     className={`px-4 py-3 rounded-xl text-sm font-bold transition-colors flex items-center justify-between ${
                       isActive
-                        ? 'bg-amber-50 text-[#FF6B00]'
-                        : 'text-slate-800 hover:bg-slate-100'
+                        ? 'bg-slate-800 text-[#FF6B00]'
+                        : 'text-slate-200 hover:bg-slate-800/60'
                     }`}
                   >
                     <span>{link.name}</span>
@@ -150,7 +158,7 @@ const Header = () => {
               })}
             </nav>
 
-            <div className="pt-3 border-t border-slate-200 space-y-2">
+            <div className="pt-3 border-t border-slate-800 space-y-2">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);

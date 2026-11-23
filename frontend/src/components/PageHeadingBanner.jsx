@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
  */
 const PageHeadingBanner = ({ title, subtitle, breadcrumbs = [] }) => {
   return (
-    <div className="bg-gradient-to-r from-[#0B1528] via-[#0F1B2F] to-[#162744] text-white py-14 sm:py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-slate-800">
+    <div className="bg-gradient-to-r from-[#0B1528] via-[#0F1B2F] to-[#162744] text-white pt-28 sm:pt-36 lg:pt-40 pb-14 sm:pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-slate-800">
       {/* Subtle perspective road / landscape lines matching PDF */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1200 400">

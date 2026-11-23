@@ -234,7 +234,7 @@ const Home = () => {
       {/* ======================================================== */}
       {/* 1. HERO SECTION (EXACT DESIGN MATCHING PDF PAGE 1)       */}
       {/* ======================================================== */}
-      <section className="relative min-h-[640px] sm:min-h-[700px] lg:min-h-[760px] bg-gradient-to-b from-[#0B1528] via-[#10203D] to-[#1C3352] text-white overflow-hidden flex items-center">
+      <section className="relative min-h-[680px] sm:min-h-[760px] lg:min-h-[820px] bg-[#08101E] text-white overflow-hidden flex items-center pt-28 sm:pt-36 lg:pt-40 pb-20 sm:pb-28">
         {/* Full-width vector artwork of the perspective highway and green agricultural parcels matching PDF */}
         <div className="absolute inset-0 z-0 pointer-events-none select-none">
           <svg
@@ -244,38 +244,38 @@ const Home = () => {
             xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
-              {/* Sky Twilight Gradient */}
-              <linearGradient id="heroSky" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#0B1528" />
-                <stop offset="35%" stopColor="#11223E" />
-                <stop offset="60%" stopColor="#1E375C" />
-                <stop offset="85%" stopColor="#8C4A1C" />
+              {/* Sky Twilight Gradient - Deep Navy on Left, Sunset Glow strictly on Far Right */}
+              <linearGradient id="heroSky" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#08101E" />
+                <stop offset="45%" stopColor="#0D1C34" />
+                <stop offset="68%" stopColor="#183152" />
+                <stop offset="85%" stopColor="#964816" />
                 <stop offset="100%" stopColor="#D97706" />
               </linearGradient>
 
-              {/* Sun Horizon Glow */}
-              <radialGradient id="sunGlow" cx="62%" cy="46%" r="28%">
-                <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.85" />
-                <stop offset="50%" stopColor="#D97706" stopOpacity="0.35" />
-                <stop offset="100%" stopColor="#0B1528" stopOpacity="0" />
+              {/* Sun Horizon Glow situated on the right horizon */}
+              <radialGradient id="sunGlow" cx="88%" cy="46%" r="25%">
+                <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.9" />
+                <stop offset="60%" stopColor="#D97706" stopOpacity="0.3" />
+                <stop offset="100%" stopColor="#08101E" stopOpacity="0" />
               </radialGradient>
 
               {/* Highway Asphalt Gradient */}
               <linearGradient id="highwayAsphalt" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#374151" />
-                <stop offset="100%" stopColor="#1F2937" />
+                <stop offset="0%" stopColor="#475569" />
+                <stop offset="100%" stopColor="#1E293B" />
               </linearGradient>
             </defs>
 
             {/* Sky Background */}
-            <rect x="0" y="0" width="1600" height="420" fill="url(#heroSky)" />
+            <rect x="0" y="0" width="1600" height="430" fill="url(#heroSky)" />
 
-            {/* Sun Glow on Horizon */}
-            <circle cx="1020" cy="410" r="140" fill="url(#sunGlow)" />
+            {/* Sun Glow on Far Right Horizon */}
+            <circle cx="1380" cy="410" r="150" fill="url(#sunGlow)" />
 
             {/* Distant Hills / Horizon Line */}
             <path
-              d="M 0 420 Q 400 395 800 410 T 1600 405 L 1600 425 L 0 425 Z"
+              d="M 0 420 Q 400 395 800 410 T 1600 405 L 1600 430 L 0 430 Z"
               fill="#183623"
               opacity="0.95"
             />
@@ -360,21 +360,21 @@ const Home = () => {
         </div>
 
         {/* Content Container (Grid layout matching PDF Page 1) */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 relative z-10 w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Content Column (7 Cols) */}
             <div className="lg:col-span-7 space-y-6 sm:space-y-8">
               <div className="space-y-3">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.08] drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
                   Every Route Leads <br className="hidden sm:inline" />
                   to Growth
                 </h1>
-                <div className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#FF6B00] tracking-tight">
+                <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-[#FF6B00] tracking-tight leading-tight drop-shadow-[0_2px_12px_rgba(0,0,0,1)]">
                   Join the Growth Corridor
                 </div>
               </div>
 
-              <p className="text-slate-200 text-base sm:text-lg md:text-xl font-normal leading-relaxed max-w-2xl drop-shadow-sm">
+              <p className="text-white text-base sm:text-lg md:text-xl font-semibold leading-relaxed max-w-xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                 Land and investment advisory where four growth engines meet — the green belt, the industrial corridor, the educational hub and port-led import–export trade.
               </p>
 
@@ -393,10 +393,10 @@ const Home = () => {
                     setSelectedItemForModal(null);
                     setModalOpen(true);
                   }}
-                  className="inline-flex items-center space-x-2 bg-[#0B1528]/80 hover:bg-[#0B1528] text-white border border-slate-600/70 px-6 py-3.5 rounded-full font-semibold text-sm sm:text-base transition-all backdrop-blur-md hover:-translate-y-0.5 active:translate-y-0"
+                  className="inline-flex items-center space-x-2 bg-[#0B1528]/60 hover:bg-[#0B1528] text-white border border-white/40 px-6 py-3.5 rounded-full font-semibold text-sm sm:text-base transition-all backdrop-blur-md hover:-translate-y-0.5 active:translate-y-0"
                 >
                   <span>Talk to an Advisor</span>
-                  <ArrowRight className="w-4 h-4 text-slate-400" />
+                  <ArrowRight className="w-4 h-4 text-slate-300" />
                 </button>
               </div>
 
@@ -432,10 +432,10 @@ const Home = () => {
                   <div
                     key={engine.id}
                     onClick={() => setActiveEngine(idx)}
-                    className={`p-4 sm:p-4.5 rounded-2xl cursor-pointer transition-all border backdrop-blur-md ${
+                    className={`p-4 sm:p-5 rounded-2xl cursor-pointer transition-all border backdrop-blur-md ${
                       isActive
-                        ? 'bg-[#0B1528]/95 border-[#FF6B00] shadow-2xl translate-x-1.5'
-                        : 'bg-[#0B1528]/75 border-slate-800/80 hover:bg-[#0B1528]/90 hover:border-slate-700'
+                        ? 'bg-[#0B1528]/90 border-[#10B981] shadow-2xl translate-x-1.5 ring-1 ring-[#10B981]/50'
+                        : 'bg-[#0B1528]/70 border-white/10 hover:bg-[#0B1528]/85 hover:border-white/20'
                     }`}
                   >
                     <div className="flex items-center justify-between">

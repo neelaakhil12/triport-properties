@@ -32,13 +32,19 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-slate-800">
           {/* Column 1: Brand & Advisory Mission (lg:col-span-4) */}
           <div className="lg:col-span-4 space-y-4">
-            <Link to="/" className="inline-block py-1">
-              <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-2xl shadow-md border border-white/40 inline-flex items-center">
-                <img
-                  src="/logo.png"
-                  alt="Triport Properties"
-                  className="h-12 sm:h-14 w-auto object-contain"
-                />
+            <Link to="/" className="inline-flex flex-col items-start group py-1 text-left">
+              <img
+                src="/logo-white.png"
+                alt="Triport Properties"
+                className="h-11 sm:h-13 w-auto object-contain drop-shadow-sm"
+              />
+              <div className="pt-1.5 leading-tight select-none">
+                <div className="text-[11px] sm:text-[12px] font-bold text-white tracking-tight">
+                  Every Route Leads to Growth
+                </div>
+                <div className="text-[10px] sm:text-[11px] font-black text-[#FF6B00] tracking-tight">
+                  Join the Growth Corridor
+                </div>
               </div>
             </Link>
             <p className="text-slate-300 text-sm leading-relaxed max-w-sm">
