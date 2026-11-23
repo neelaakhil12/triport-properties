@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, PhoneCall, Compass, ShieldCheck, UserCircle, MessageSquare } from 'lucide-react';
+import { Menu, X, PhoneCall, MessageCircle } from 'lucide-react';
 import api from '../api/client';
 import EnquiryModal from './EnquiryModal';
 
@@ -37,49 +37,52 @@ const Header = () => {
     fetchGeneral();
   }, []);
 
+  // 7 Navigation Links matching the Client Design PDF (Pages 1, 7, 9, 12, 15, 17, 18)
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'About Us', path: '/about' },
+    { name: 'About', path: '/about' },
     { name: 'Services', path: '/services' },
-    { name: 'Projects', path: '/projects' },
+    { name: 'Locations', path: '/locations' },
+    { name: 'Listings', path: '/listings' },
     { name: 'NRI Services', path: '/nri-services' },
-    { name: 'Contact Us', path: '/contact' },
+    { name: 'Contact', path: '/contact' },
   ];
 
-  const phone = generalSettings?.phone || '+91 877 225 9988';
   const whatsapp = generalSettings?.whatsappNumber || '+91 98480 12345';
 
   return (
     <>
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'bg-white shadow-md py-2 sm:py-3 border-b border-zinc-200' : 'bg-white py-2.5 sm:py-4.5 border-b border-zinc-100 shadow-sm'
+          isScrolled
+            ? 'bg-[#0B1528]/95 backdrop-blur-md shadow-lg py-2.5 border-b border-slate-800'
+            : 'bg-[#0B1528] py-3.5 sm:py-4 border-b border-slate-800/80 shadow-md'
         }`}
       >
-        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-10">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
           <div className="flex items-center justify-between">
-            {/* Left: Prominent Logo with clean mobile-safe scaling & generous desktop gap */}
+            {/* Left: Client Logo */}
             <div className="flex items-center min-w-0">
-              <Link to="/" className="flex items-center group py-0.5 mr-3 sm:mr-8 lg:mr-10 xl:mr-14 flex-shrink-0">
+              <Link to="/" className="flex items-center group py-0.5 mr-4 sm:mr-8 lg:mr-10 xl:mr-14 flex-shrink-0">
                 <img
                   src="/logo.png"
-                  alt="Triport Properties"
-                  className="h-12 sm:h-16 md:h-20 lg:h-[84px] max-w-[140px] xs:max-w-[170px] sm:max-w-none w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-sm"
+                  alt="Triport Properties - Every Route Leads to Growth"
+                  className="h-11 sm:h-14 md:h-16 lg:h-[72px] w-auto object-contain group-hover:scale-102 transition-transform drop-shadow-sm"
                 />
               </Link>
 
-              {/* Desktop Navigation with 7 clean items */}
-              <nav className="hidden lg:flex items-center space-x-1.5 xl:space-x-3">
+              {/* Desktop Navigation (Exact 7 Links from PDF) */}
+              <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2">
                 {navLinks.map((link) => {
-                  const isActive = location.pathname === link.path;
+                  const isActive = location.pathname === link.path || (link.path === '/listings' && location.pathname.startsWith('/projects'));
                   return (
                     <Link
                       key={link.name}
                       to={link.path}
-                      className={`px-3 py-2 xl:px-4 xl:py-2.5 rounded-lg text-sm transition-all whitespace-nowrap ${
+                      className={`px-3 py-2 xl:px-3.5 xl:py-2 rounded-lg text-sm transition-all whitespace-nowrap font-medium ${
                         isActive
-                          ? 'bg-black text-white shadow-sm font-semibold'
-                          : 'text-zinc-700 hover:bg-zinc-100 hover:text-[#38BDF8] font-medium'
+                          ? 'text-white font-semibold border-b-2 border-[#FF6B00] rounded-none'
+                          : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
                       }`}
                     >
                       {link.name}
@@ -89,91 +92,90 @@ const Header = () => {
               </nav>
             </div>
 
-            {/* Right: CTA Button */}
+            {/* Right: CTA Button - "Book a Free Consultation" in vibrant orange matching PDF */}
             <div className="hidden lg:flex items-center space-x-3 flex-shrink-0 ml-3">
               <button
                 onClick={() => setEnquiryModalOpen(true)}
-                className="inline-flex items-center space-x-2 bg-black hover:bg-zinc-800 text-white px-4 py-2 xl:px-5 xl:py-2.5 rounded-full text-xs xl:text-sm font-semibold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap"
+                className="inline-flex items-center space-x-2 bg-[#FF6B00] hover:bg-[#e65f00] text-white px-5 py-2.5 rounded-full text-xs xl:text-sm font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap"
               >
-                <PhoneCall className="w-4 h-4 text-[#38BDF8]" />
-                <span>Talk to an Advisor</span>
+                <span>Book a Free Consultation</span>
               </button>
             </div>
 
-            {/* Mobile Actions: Advisor Quick Button & Hamburger */}
-            <div className="flex items-center space-x-1.5 sm:space-x-2 lg:hidden flex-shrink-0">
+            {/* Mobile Hamburger Toggle */}
+            <div className="flex items-center space-x-2 lg:hidden">
               <button
                 onClick={() => setEnquiryModalOpen(true)}
-                className="px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-full bg-black text-white text-[11px] sm:text-xs font-semibold flex items-center space-x-1 shadow-sm whitespace-nowrap"
+                className="bg-[#FF6B00] text-white text-[11px] font-bold px-3 py-1.5 rounded-full"
               >
-                <PhoneCall className="w-3.5 h-3.5 text-[#38BDF8]" />
-                <span className="hidden xs:inline">Advisor</span>
+                Consult
               </button>
+
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-1.5 sm:p-2 rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 focus:outline-none transition-colors"
-                aria-label="Toggle menu"
+                className="p-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 focus:outline-none transition-colors"
+                aria-label="Toggle navigation menu"
               >
-                {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
+                {mobileMenuOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
+        {/* Mobile Slide-down Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-zinc-200 px-4 pt-3 pb-6 space-y-1 shadow-2xl animate-in slide-in-from-top duration-200">
-            <div className="grid grid-cols-1 gap-1">
+          <div className="lg:hidden bg-[#0B1528] border-b border-slate-800 px-4 pt-3 pb-6 space-y-2 shadow-2xl animate-in slide-in-from-top-3 duration-200">
+            <nav className="flex flex-col space-y-1">
               {navLinks.map((link) => {
-                const isActive = location.pathname === link.path;
+                const isActive = location.pathname === link.path || (link.path === '/listings' && location.pathname.startsWith('/projects'));
                 return (
                   <Link
                     key={link.name}
                     to={link.path}
-                    className={`block px-4 py-2.5 rounded-lg text-base font-semibold ${
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`px-4 py-3 rounded-xl text-sm font-semibold transition-colors flex items-center justify-between ${
                       isActive
-                        ? 'bg-black text-white'
-                        : 'text-zinc-800 hover:bg-zinc-100'
+                        ? 'bg-slate-800 text-[#FF6B00]'
+                        : 'text-slate-200 hover:bg-slate-800/60'
                     }`}
                   >
-                    {link.name}
+                    <span>{link.name}</span>
+                    {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B00]" />}
                   </Link>
                 );
               })}
-            </div>
+            </nav>
 
-            <div className="pt-4 border-t border-zinc-200 flex flex-col gap-2">
+            <div className="pt-3 border-t border-slate-800 space-y-2">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
                   setEnquiryModalOpen(true);
                 }}
-                className="w-full flex items-center justify-center space-x-2 bg-black text-white py-3 rounded-lg font-semibold shadow-md"
+                className="w-full bg-[#FF6B00] hover:bg-[#e65f00] text-white text-center py-3 rounded-full text-sm font-bold shadow-md"
               >
-                <PhoneCall className="w-4 h-4 text-[#38BDF8]" />
-                <span>Talk to an Advisor</span>
+                Book a Free Consultation
               </button>
 
-              <div className="flex items-center justify-center px-2 pt-2 text-xs font-medium text-zinc-600">
-                <a
-                  href={`tel:${phone}`}
-                  className="hover:underline flex items-center gap-1 text-zinc-700"
-                >
-                  <PhoneCall className="w-3.5 h-3.5 text-[#38BDF8]" />
-                  Call: {phone}
-                </a>
-              </div>
+              <a
+                href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}?text=Hello%20Triport%20Properties,%20I%20am%20interested%20in%20land%20advisory.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center space-x-2 bg-emerald-600 hover:bg-emerald-500 text-white py-2.5 rounded-full text-xs font-semibold"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>Chat on WhatsApp</span>
+              </a>
             </div>
           </div>
         )}
       </header>
 
-      {/* Global Advisor Enquiry Modal */}
+      {/* Consultation Modal */}
       <EnquiryModal
         isOpen={enquiryModalOpen}
         onClose={() => setEnquiryModalOpen(false)}
-        title="Consult With Our Land Investment Advisor"
-        defaultType="General"
+        initialService="Free Land Advisory Consultation"
       />
     </>
   );

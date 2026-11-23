@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Building2, Search, FileCheck, Handshake, CheckCircle2, Send, Loader2, Factory, Warehouse, Compass } from 'lucide-react';
 import PageHeadingBanner from '../components/PageHeadingBanner';
+import OrangeCTABanner from '../components/OrangeCTABanner';
 import api from '../api/client';
 
 const CorporateLandBank = () => {
@@ -361,6 +362,9 @@ const CorporateLandBank = () => {
           )}
         </div>
       </div>
+
+      {/* Orange CTA Banner matching PDF */}
+      <OrangeCTABanner />
     </div>
   );
 };

@@ -3,42 +3,50 @@ import { Link } from 'react-router-dom';
 
 /**
  * PageHeadingBanner Component
- * Matches the client wireframe screenshot with a bold Black (#111111) banner
- * and distinctive font styling ("About the company", "Importance of the Triport city")
+ * Deep Navy banner matching the client design PDF (pages 7, 9, 12, 15, 17, 18)
  */
 const PageHeadingBanner = ({ title, subtitle, breadcrumbs = [] }) => {
   return (
-    <div className="bg-[#111111] text-white py-14 sm:py-20 px-4 relative overflow-hidden border-b-2 border-zinc-800">
-      {/* Subtle background glow effect */}
-      <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#38BDF8]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+    <div className="bg-gradient-to-r from-[#0B1528] via-[#0F1B2F] to-[#162744] text-white py-14 sm:py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-slate-800">
+      {/* Subtle perspective road / landscape lines matching PDF */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1200 400">
+          <line x1="600" y1="400" x2="600" y2="120" stroke="#38BDF8" strokeWidth="2" strokeDasharray="12 12" />
+          <polygon points="560,400 640,400 605,120 595,120" fill="rgba(255,255,255,0.05)" />
+          <line x1="0" y1="200" x2="1200" y2="200" stroke="#FFFFFF" strokeWidth="1" opacity="0.1" />
+        </svg>
+      </div>
 
-      <div className="max-w-7xl mx-auto text-center relative z-10">
+      {/* Ambient glow effects */}
+      <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#FF6B00]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#38BDF8]/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Breadcrumbs */}
         {breadcrumbs.length > 0 && (
-          <nav className="flex items-center justify-center space-x-2 text-xs uppercase tracking-wider text-zinc-400 mb-4">
-            <Link to="/" className="hover:text-[#38BDF8] transition-colors">Home</Link>
+          <nav className="flex items-center space-x-2 text-xs sm:text-sm font-medium text-slate-400 mb-4">
+            <Link to="/" className="text-slate-300 hover:text-[#FF6B00] transition-colors">Home</Link>
             {breadcrumbs.map((crumb, idx) => (
               <React.Fragment key={idx}>
-                <span className="text-zinc-600">/</span>
+                <span className="text-slate-600">/</span>
                 {crumb.path ? (
-                  <Link to={crumb.path} className="hover:text-[#38BDF8] transition-colors">{crumb.label}</Link>
+                  <Link to={crumb.path} className="text-slate-300 hover:text-[#FF6B00] transition-colors">{crumb.label}</Link>
                 ) : (
-                  <span className="text-[#38BDF8] font-medium">{crumb.label}</span>
+                  <span className="text-white font-medium">{crumb.label}</span>
                 )}
               </React.Fragment>
             ))}
           </nav>
         )}
 
-        {/* Heading in stylish client script / handwriting accent as displayed in the client mockup */}
-        <h1 className="client-script-title text-4xl sm:text-5xl md:text-6xl text-white font-normal tracking-wide mb-3 drop-shadow-sm">
+        {/* Heading */}
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight mb-4 leading-tight">
           {title}
         </h1>
 
         {/* Subtitle */}
         {subtitle && (
-          <p className="max-w-3xl mx-auto text-zinc-300 text-sm sm:text-base font-light leading-relaxed">
+          <p className="max-w-3xl text-slate-300 text-sm sm:text-base md:text-lg font-normal leading-relaxed">
             {subtitle}
           </p>
         )}

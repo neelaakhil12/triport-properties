@@ -3,6 +3,7 @@ import { Search, Filter, RefreshCw } from 'lucide-react';
 import PageHeadingBanner from '../components/PageHeadingBanner';
 import ProjectCard from '../components/ProjectCard';
 import EnquiryModal from '../components/EnquiryModal';
+import OrangeCTABanner from '../components/OrangeCTABanner';
 import api from '../api/client';
 
 const Projects = () => {
@@ -223,6 +224,9 @@ const Projects = () => {
           </div>
         )}
       </div>
+
+      {/* Orange CTA Banner matching PDF */}
+      <OrangeCTABanner />
 
       {/* Modal */}
       <EnquiryModal

@@ -1,285 +1,195 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle2, ShieldCheck, Target, Eye, MapPin, Award, Users, FileText, ArrowRight, Navigation, Compass, AlertTriangle, Clock } from 'lucide-react';
+import {
+  ShieldCheck,
+  CheckCircle2,
+  Users,
+  MessageSquare,
+  FileText,
+  MapPin,
+  ArrowRight,
+  Award
+} from 'lucide-react';
 import PageHeadingBanner from '../components/PageHeadingBanner';
-import api from '../api/client';
-import EnquiryModal from '../components/EnquiryModal';
+import OrangeCTABanner from '../components/OrangeCTABanner';
 
 const About = () => {
-  const [aboutData, setAboutData] = useState(null);
-  const [locations, setLocations] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [aboutRes, locRes] = await Promise.all([
-          api.get('/settings/about'),
-          api.get('/locations')
-        ]);
-        if (aboutRes.data?.data) {
-          setAboutData(aboutRes.data.data);
-        }
-        if (locRes.data?.data) {
-          setLocations(locRes.data.data);
-        }
-      } catch (err) {
-        console.error('Failed to load about and locations data:', err);
-      }
-    };
-    fetchData();
-  }, []);
-
-  const heading = aboutData?.heading || "Advisors for Land, Built on Local Knowledge";
-  const introduction = aboutData?.introduction || "We are a land investment advisory based on the Tirupati–Naidupeta corridor. Our role is to help you make a sound decision, not just a sale. We explain the location, the infrastructure plans, the title and approval status, and the likely use of the land before you commit.";
-  const promise = aboutData?.ourPromise || "We recommend only the land we would be comfortable buying ourselves.";
-  const vision = aboutData?.vision || "To be the most trusted, transparent, and legally rigorous land investment advisory on India's east-coast growth corridors.";
-  const mission = aboutData?.mission || "Empower every buyer—from a first-time plot buyer to a multi-national corporation—with verified land records, factual infrastructure updates, and complete transaction integrity.";
-  const localExpertise = aboutData?.localExpertise || "Our advisors live and breathe the Tirupati-Naidupeta corridor. We verify ground realities, revenue records, and planned development firsthand.";
-  const transparency = aboutData?.transparency || "Every recommendation is backed by documented title chain, approved layout sanctions, and physical road connectivity checks.";
+  const teamMembers = [
+    {
+      name: "Satish K.",
+      role: "Founder & Lead Advisor",
+      experience: "15+ years corridor advisory",
+      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      name: "R. Narayana Swamy",
+      role: "Land Verification & Revenue Due Diligence",
+      experience: "Retired Revenue Officer & Title Specialist",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      name: "B. Sneha Reddy",
+      role: "Client Relations & NRI Desk",
+      experience: "Specialized in NRI and family property onboarding",
+      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      name: "V. Madhava Rao",
+      role: "Corporate Land Bank & Industrial Liaison",
+      experience: "Infrastructure & industrial corridor consultant",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80"
+    }
+  ];
 
   return (
     <div className="bg-white">
-      {/* Black Banner Heading with script accent */}
+      {/* 1. Deep Navy Page Header matching PDF Page 7 */}
       <PageHeadingBanner
-        title="About the company"
-        subtitle="Advisors for Land, Built on Local Knowledge and Stringent Verification."
-        breadcrumbs={[{ label: 'About Us' }]}
+        title="Advisors for land, built on local knowledge"
+        subtitle="We are a land investment advisory on the Tirupati–Naidupeta corridor. Our role is to help you make a sound decision, not just a sale."
+        breadcrumbs={[{ label: 'About' }]}
       />
 
-      {/* Main Introduction */}
+      {/* 2. OUR STORY - Local roots, clear advice (PDF Page 7) */}
       <section className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div data-aos="fade-right" className="lg:col-span-7 space-y-6">
-            <span className="text-xs uppercase font-bold text-[#38BDF8] tracking-widest bg-sky-50 px-3 py-1 rounded-md">
-              Our Identity & Purpose
+          <div className="lg:col-span-6 space-y-6">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#FF6B00] block">
+              Our Story
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#222222] leading-tight">
-              {heading}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              Local roots, clear advice
             </h2>
-            <p className="text-zinc-600 text-base sm:text-lg leading-relaxed">
-              {introduction}
+            <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
+              Before you commit, we explain the location, the infrastructure plans, the title and approval status, and the likely use of the land. That way you buy knowing exactly what you own and why it should grow in value.
             </p>
-
-            {/* Highlighted Our Promise */}
-            <div className="p-6 rounded-2xl bg-amber-50/70 border-l-4 border-amber-500 my-6 shadow-sm">
-              <span className="text-xs font-bold uppercase tracking-wider text-amber-800 block mb-1">
-                Our Non-Negotiable Promise
-              </span>
-              <p className="text-xl font-serif italic text-amber-950 font-medium">
-                "{promise}"
-              </p>
-            </div>
-
-            {/* Our Approach (3 Pillars) */}
-            <div className="space-y-4 pt-2">
-              <h3 className="text-lg font-bold text-zinc-900">Our Advisory Approach:</h3>
-              <div className="grid grid-cols-1 gap-3 text-sm text-zinc-700">
-                <div className="flex items-start space-x-3 p-3.5 rounded-xl bg-zinc-50 border border-zinc-200">
-                  <div className="w-6 h-6 rounded-full bg-[#38BDF8] text-black font-bold flex items-center justify-center shrink-0 text-xs">
-                    1
-                  </div>
-                  <div>
-                    <span className="font-bold text-zinc-900 block">Plain-Language Advice</span>
-                    <span>No pressure to buy. We break down revenue jargons and explain ground truths clearly.</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-3 p-3.5 rounded-xl bg-zinc-50 border border-zinc-200">
-                  <div className="w-6 h-6 rounded-full bg-[#38BDF8] text-black font-bold flex items-center justify-center shrink-0 text-xs">
-                    2
-                  </div>
-                  <div>
-                    <span className="font-bold text-zinc-900 block">Verification of Records & Layout Approvals</span>
-                    <span>No recommendation is issued without checking 30-year Encumbrance, TUDA/DTCP sanctions, and physical access.</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-3 p-3.5 rounded-xl bg-zinc-50 border border-zinc-200">
-                  <div className="w-6 h-6 rounded-full bg-[#38BDF8] text-black font-bold flex items-center justify-center shrink-0 text-xs">
-                    3
-                  </div>
-                  <div>
-                    <span className="font-bold text-zinc-900 block">Advice for All Stakeholders</span>
-                    <span>Dedicated tailored frameworks for individuals, families, farmers, institutions, and NRI investors.</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
+              Rooted in the Tirupati–Naidupeta growth belt with over a decade of ground presence, Triport was created to eliminate the opacity, pressure, and uncertainty common in traditional real estate transactions.
+            </p>
           </div>
 
-          <div data-aos="fade-left" className="lg:col-span-5 space-y-6">
-            <div className="rounded-3xl overflow-hidden shadow-2xl border border-zinc-200">
+          <div className="lg:col-span-6">
+            <div className="relative rounded-3xl overflow-hidden shadow-xl bg-slate-100 aspect-[16/10] border border-slate-200">
               <img
-                src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1000&q=80"
-                alt="Triport corridor inspection"
-                className="w-full h-[360px] object-cover"
+                src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80"
+                alt="NH 16 Highway Corridor"
+                className="w-full h-full object-cover"
               />
-              <div className="p-6 bg-zinc-900 text-white">
-                <div className="flex items-center space-x-2 text-[#38BDF8] text-xs font-bold uppercase mb-1">
-                  <ShieldCheck className="w-4 h-4" />
-                  <span>Ground Reality Audits</span>
-                </div>
-                <p className="text-zinc-300 text-xs leading-relaxed">
-                  Every parcel recommended by Triport undergoes GPS boundary survey, road connectivity verification, and revenue link-document checks.
-                </p>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute bottom-5 left-5 bg-black/75 backdrop-blur-md px-4 py-2 rounded-xl text-white text-xs font-bold flex items-center space-x-2 border border-white/20">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#FF6B00]" />
+                <span>NH-16 Chennai–Kolkata Economic Highway</span>
               </div>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-sky-50 border border-sky-200 text-sky-950 flex items-center justify-between">
-              <div>
-                <h4 className="font-bold text-sm">Need Independent Due Diligence?</h4>
-                <p className="text-xs text-sky-800">Speak directly with our senior corridor land advisor.</p>
-              </div>
-              <button
-                onClick={() => setModalOpen(true)}
-                className="bg-black hover:bg-zinc-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl shrink-0"
-              >
-                Consult Now
-              </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Vision & Mission */}
-      <section className="py-20 bg-zinc-50 border-y border-zinc-200">
+      {/* 3. OUR APPROACH - How we work with you (PDF Page 7) */}
+      <section className="bg-slate-50 py-16 sm:py-24 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div
-              data-aos="fade-up"
-              className="bg-white p-8 sm:p-10 rounded-3xl border border-zinc-200 shadow-sm"
-            >
-              <div className="w-12 h-12 rounded-xl bg-sky-100 text-[#38BDF8] flex items-center justify-center mb-6">
-                <Eye className="w-6 h-6 text-sky-700" />
-              </div>
-              <h3 className="text-2xl font-bold text-zinc-900 mb-3">Our Vision</h3>
-              <p className="text-zinc-600 text-sm sm:text-base leading-relaxed">
-                {vision}
-              </p>
-            </div>
-
-            <div
-              data-aos="fade-up"
-              data-aos-delay="100"
-              className="bg-white p-8 sm:p-10 rounded-3xl border border-zinc-200 shadow-sm"
-            >
-              <div className="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center mb-6">
-                <Target className="w-6 h-6" />
-              </div>
-              <h3 className="text-2xl font-bold text-zinc-900 mb-3">Our Mission</h3>
-              <p className="text-zinc-600 text-sm sm:text-base leading-relaxed">
-                {mission}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* BLACK HEADING BANNER: "Importance of the Triport city" (Integrated into About Page) */}
-      <section id="locations" className="bg-[#111111] text-white py-14 sm:py-16 text-center border-y border-zinc-800 scroll-mt-20">
-        <div className="max-w-5xl mx-auto px-4">
-          <h2 className="client-script-title text-4xl sm:text-5xl md:text-6xl text-white font-normal mb-3">
-            Importance of the Triport city
-          </h2>
-          <p className="text-zinc-400 text-sm sm:text-base font-light max-w-2xl mx-auto">
-            Every Route Leads to Growth. The corridor is connected by highways, rail, air and sea, giving buyers versatile options to use and resell their land.
-          </p>
-        </div>
-      </section>
-
-      {/* Corridor Geography & Locations Section */}
-      <section className="py-16 sm:py-20 bg-zinc-50 border-b border-zinc-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          {/* Intro Card */}
-          <div data-aos="fade-up" className="bg-white border border-zinc-200 rounded-3xl p-8 max-w-4xl mx-auto text-center space-y-3 shadow-sm">
-            <span className="text-xs uppercase font-bold text-[#38BDF8] tracking-widest block">
-              Corridor Geography & Multi-Modal Logistics
+          <div className="text-center max-w-2xl mx-auto space-y-3 mb-14">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#FF6B00] block">
+              Our Approach
             </span>
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-zinc-900">
-              Multi-Modal Growth Convergence
-            </h3>
-            <p className="text-zinc-600 text-sm sm:text-base leading-relaxed">
-              The Tirupati–Naidupeta Growth Corridor serves as the vital geographic land bridge connecting Rayalaseema's cultural & academic center with the Chennai-Bengaluru industrial sphere and Andhra Pradesh’s deep-water seaports.
-            </p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              How we work with you
+            </h2>
           </div>
 
-          {/* Locations Grid / Cards */}
-          <div className="space-y-12">
-            {locations.map((loc, idx) => {
-              const isEven = idx % 2 === 1;
-              return (
-                <div
-                  key={loc._id || idx}
-                  data-aos="fade-up"
-                  className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center p-6 sm:p-10 rounded-3xl border border-zinc-200 bg-white shadow-sm hover:shadow-md transition-shadow"
-                >
-                  {/* Image */}
-                  <div className={`lg:col-span-5 ${isEven ? 'lg:order-2' : ''}`}>
-                    <div className="relative rounded-2xl overflow-hidden shadow-md border border-zinc-200 aspect-[16/10] bg-zinc-100 group">
-                      <img
-                        src={loc.image}
-                        alt={loc.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute top-3 left-3 bg-black/80 text-[#38BDF8] text-xs font-bold px-3 py-1 rounded-full uppercase">
-                        {loc.name.split(' ')[0]}
-                      </div>
-                    </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-sky-50 text-[#38BDF8] flex items-center justify-center">
+                <MessageSquare className="w-6 h-6 text-[#38BDF8]" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900">Plain-language advice</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                We explain location, infrastructure plans and approvals in simple terms, with no pressure to buy.
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <ShieldCheck className="w-6 h-6 text-emerald-600" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900">Verified before we recommend</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Records, title and layout approvals are checked before any land reaches your shortlist.
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                <Users className="w-6 h-6 text-indigo-600" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900">For every kind of buyer</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Individuals, families, farmers and companies — each with advice suited to their goal.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. OUR PROMISE QUOTED STATEMENT (PDF Page 8) */}
+      <section className="py-20 sm:py-28 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+        <div className="w-16 h-16 mx-auto rounded-full bg-amber-50 flex items-center justify-center shadow-inner">
+          <Award className="w-8 h-8 text-[#FF6B00]" />
+        </div>
+        <blockquote className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          “We recommend only the land we would be comfortable buying ourselves.”
+        </blockquote>
+        <div className="text-xs font-bold uppercase tracking-widest text-[#FF6B00]">
+          Our Promise
+        </div>
+      </section>
+
+      {/* 5. THE TEAM - People you will meet (PDF Page 8) */}
+      <section className="bg-slate-50 py-16 sm:py-24 border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl space-y-2 mb-14">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#FF6B00] block">
+              The Team
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              People you will meet
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {teamMembers.map((member, idx) => (
+              <div
+                key={idx}
+                className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow group flex flex-col justify-between"
+              >
+                <div>
+                  <div className="h-64 overflow-hidden bg-slate-100">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
-
-                  {/* Details */}
-                  <div className={`lg:col-span-7 space-y-4 ${isEven ? 'lg:order-1' : ''}`}>
-                    <div>
-                      <span className="text-xs uppercase font-bold text-[#38BDF8] tracking-widest block mb-1">
-                        {loc.corridorRole}
-                      </span>
-                      <h4 className="text-2xl sm:text-3xl font-extrabold text-zinc-900">
-                        {loc.name}
-                      </h4>
+                  <div className="p-6 space-y-1.5">
+                    <h3 className="font-bold text-lg text-slate-900">
+                      {member.name}
+                    </h3>
+                    <div className="text-xs font-semibold text-[#FF6B00]">
+                      {member.role}
                     </div>
-
-                    <p className="text-zinc-700 text-sm leading-relaxed">
-                      {loc.description}
+                    <p className="text-xs text-slate-500 pt-2 leading-relaxed">
+                      {member.experience}
                     </p>
-
-                    {/* Distance Grid */}
-                    {loc.distances?.length > 0 && (
-                      <div className="space-y-2 pt-1">
-                        <h5 className="text-xs font-bold uppercase tracking-wider text-zinc-800 flex items-center gap-1.5">
-                          <Navigation className="w-3.5 h-3.5 text-[#38BDF8]" />
-                          <span>Verified Distance & Travel Times:</span>
-                        </h5>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                          {loc.distances.map((d, dIdx) => (
-                            <div
-                              key={dIdx}
-                              className="p-2.5 rounded-xl bg-zinc-50 border border-zinc-200 flex items-center justify-between"
-                            >
-                              <span className="font-semibold text-zinc-800">{d.to}</span>
-                              <span className="font-bold text-[#38BDF8] bg-sky-50 px-2 py-0.5 rounded">
-                                {d.distanceKm} km ({d.travelTimeMins} mins)
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Modal */}
-      <EnquiryModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title="Consult with a Land Advisor"
-        defaultType="General"
-      />
+      {/* 6. ORANGE CTA BANNER (PDF Page 8) */}
+      <OrangeCTABanner />
     </div>
   );
 };

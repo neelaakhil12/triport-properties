@@ -136,7 +136,11 @@ function App() {
         />
         <Route
           path="/locations"
-          element={<Navigate to="/about" replace />}
+          element={
+            <PublicLayout>
+              <Locations />
+            </PublicLayout>
+          }
         />
         <Route
           path="/nri-services"
