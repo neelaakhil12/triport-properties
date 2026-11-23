@@ -65,7 +65,7 @@ const Header = () => {
             <div className="flex items-center min-w-0">
               <Link to="/" className="flex flex-col items-center group py-0.5 mr-4 sm:mr-8 lg:mr-10 xl:mr-14 flex-shrink-0 text-center">
                 <img
-                  src="/logo-white.png"
+                  src="/logo.png"
                   alt="Triport Properties"
                   className="h-9 sm:h-11 md:h-12 lg:h-[50px] w-auto object-contain group-hover:scale-102 transition-transform drop-shadow-md"
                 />

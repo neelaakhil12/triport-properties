@@ -34,7 +34,7 @@ const Footer = () => {
           <div className="lg:col-span-4 space-y-4">
             <Link to="/" className="inline-flex flex-col items-start group py-1 text-left">
               <img
-                src="/logo-white.png"
+                src="/logo.png"
                 alt="Triport Properties"
                 className="h-11 sm:h-13 w-auto object-contain drop-shadow-sm"
               />
