@@ -55,13 +55,13 @@ const Header = () => {
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#0B1528]/95 backdrop-blur-md shadow-lg py-2.5 border-b border-slate-800'
-            : 'bg-[#0B1528] py-3.5 sm:py-4 border-b border-slate-800/80 shadow-md'
+            ? 'bg-white/95 backdrop-blur-xl shadow-lg py-2.5 border-b border-slate-200/80'
+            : 'bg-white/90 backdrop-blur-xl py-3.5 sm:py-4 border-b border-slate-200/60 shadow-md'
         }`}
       >
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
           <div className="flex items-center justify-between">
-            {/* Left: Client Logo */}
+            {/* Left: Client Logo - 100% Crisp & High-Contrast on Glassy White Background */}
             <div className="flex items-center min-w-0">
               <Link to="/" className="flex items-center group py-0.5 mr-4 sm:mr-8 lg:mr-10 xl:mr-14 flex-shrink-0">
                 <img
@@ -74,15 +74,17 @@ const Header = () => {
               {/* Desktop Navigation (Exact 7 Links from PDF) */}
               <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2">
                 {navLinks.map((link) => {
-                  const isActive = location.pathname === link.path || (link.path === '/listings' && location.pathname.startsWith('/projects'));
+                  const isActive =
+                    location.pathname === link.path ||
+                    (link.path === '/listings' && location.pathname.startsWith('/projects'));
                   return (
                     <Link
                       key={link.name}
                       to={link.path}
-                      className={`px-3 py-2 xl:px-3.5 xl:py-2 rounded-lg text-sm transition-all whitespace-nowrap font-medium ${
+                      className={`px-3 py-2 xl:px-3.5 xl:py-2 rounded-lg text-sm transition-all whitespace-nowrap font-bold ${
                         isActive
-                          ? 'text-white font-semibold border-b-2 border-[#FF6B00] rounded-none'
-                          : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
+                          ? 'text-[#FF6B00] border-b-2 border-[#FF6B00] rounded-none'
+                          : 'text-slate-800 hover:text-[#FF6B00] hover:bg-slate-100/60'
                       }`}
                     >
                       {link.name}
@@ -92,11 +94,11 @@ const Header = () => {
               </nav>
             </div>
 
-            {/* Right: CTA Button - "Book a Free Consultation" in vibrant orange matching PDF */}
+            {/* Right: CTA Button - "Book a Free Consultation" in vibrant orange */}
             <div className="hidden lg:flex items-center space-x-3 flex-shrink-0 ml-3">
               <button
                 onClick={() => setEnquiryModalOpen(true)}
-                className="inline-flex items-center space-x-2 bg-[#FF6B00] hover:bg-[#e65f00] text-white px-5 py-2.5 rounded-full text-xs xl:text-sm font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap"
+                className="inline-flex items-center space-x-2 bg-[#FF6B00] hover:bg-[#e05e00] text-white px-5 py-2.5 rounded-full text-xs xl:text-sm font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap"
               >
                 <span>Book a Free Consultation</span>
               </button>
@@ -106,37 +108,39 @@ const Header = () => {
             <div className="flex items-center space-x-2 lg:hidden">
               <button
                 onClick={() => setEnquiryModalOpen(true)}
-                className="bg-[#FF6B00] text-white text-[11px] font-bold px-3 py-1.5 rounded-full"
+                className="bg-[#FF6B00] text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-sm"
               >
                 Consult
               </button>
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 focus:outline-none transition-colors"
+                className="p-2 rounded-lg text-slate-800 hover:bg-slate-100 focus:outline-none transition-colors"
                 aria-label="Toggle navigation menu"
               >
-                {mobileMenuOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}
+                {mobileMenuOpen ? <X className="w-6 h-6 text-slate-900" /> : <Menu className="w-6 h-6 text-slate-900" />}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Slide-down Drawer */}
+        {/* Mobile Slide-down Drawer (Glassy Modal Style) */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-[#0B1528] border-b border-slate-800 px-4 pt-3 pb-6 space-y-2 shadow-2xl animate-in slide-in-from-top-3 duration-200">
+          <div className="lg:hidden bg-white/95 backdrop-blur-2xl border-b border-slate-200 px-4 pt-3 pb-6 space-y-2 shadow-2xl animate-in slide-in-from-top-3 duration-200">
             <nav className="flex flex-col space-y-1">
               {navLinks.map((link) => {
-                const isActive = location.pathname === link.path || (link.path === '/listings' && location.pathname.startsWith('/projects'));
+                const isActive =
+                  location.pathname === link.path ||
+                  (link.path === '/listings' && location.pathname.startsWith('/projects'));
                 return (
                   <Link
                     key={link.name}
                     to={link.path}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`px-4 py-3 rounded-xl text-sm font-semibold transition-colors flex items-center justify-between ${
+                    className={`px-4 py-3 rounded-xl text-sm font-bold transition-colors flex items-center justify-between ${
                       isActive
-                        ? 'bg-slate-800 text-[#FF6B00]'
-                        : 'text-slate-200 hover:bg-slate-800/60'
+                        ? 'bg-amber-50 text-[#FF6B00]'
+                        : 'text-slate-800 hover:bg-slate-100'
                     }`}
                   >
                     <span>{link.name}</span>
@@ -146,13 +150,13 @@ const Header = () => {
               })}
             </nav>
 
-            <div className="pt-3 border-t border-slate-800 space-y-2">
+            <div className="pt-3 border-t border-slate-200 space-y-2">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
                   setEnquiryModalOpen(true);
                 }}
-                className="w-full bg-[#FF6B00] hover:bg-[#e65f00] text-white text-center py-3 rounded-full text-sm font-bold shadow-md"
+                className="w-full bg-[#FF6B00] hover:bg-[#e05e00] text-white text-center py-3 rounded-full text-sm font-bold shadow-md"
               >
                 Book a Free Consultation
               </button>

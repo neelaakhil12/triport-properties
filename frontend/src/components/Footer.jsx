@@ -33,11 +33,13 @@ const Footer = () => {
           {/* Column 1: Brand & Advisory Mission (lg:col-span-4) */}
           <div className="lg:col-span-4 space-y-4">
             <Link to="/" className="inline-block py-1">
-              <img
-                src="/logo.png"
-                alt="Triport Properties"
-                className="h-14 sm:h-16 w-auto object-contain drop-shadow-sm"
-              />
+              <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-2xl shadow-md border border-white/40 inline-flex items-center">
+                <img
+                  src="/logo.png"
+                  alt="Triport Properties"
+                  className="h-12 sm:h-14 w-auto object-contain"
+                />
+              </div>
             </Link>
             <p className="text-slate-300 text-sm leading-relaxed max-w-sm">
               Land and investment advisory for the green belt, industrial corridor, educational hub and port-led trade around Naidupeta.
