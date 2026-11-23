@@ -61,22 +61,14 @@ const Header = () => {
       >
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
           <div className="flex items-center justify-between">
-            {/* Left: Client Logo + Tagline matching PDF exactly */}
+            {/* Left: Client Logo */}
             <div className="flex items-center min-w-0">
-              <Link to="/" className="flex flex-col items-center group py-0.5 mr-4 sm:mr-8 lg:mr-10 xl:mr-12 flex-shrink-0 text-center">
+              <Link to="/" className="flex items-center group py-0.5 mr-4 sm:mr-8 lg:mr-10 xl:mr-12 flex-shrink-0">
                 <img
                   src="/logo.png"
                   alt="Triport Properties"
                   className="h-14 sm:h-16 md:h-20 lg:h-[82px] xl:h-[90px] w-auto object-contain group-hover:scale-102 transition-transform drop-shadow-lg"
                 />
-                <div className="text-center pt-1 leading-tight select-none">
-                  <div className="text-xs sm:text-[13px] md:text-sm font-bold text-white tracking-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
-                    Every Route Leads to Growth
-                  </div>
-                  <div className="text-[11px] sm:text-xs md:text-[13px] font-black text-[#FF6B00] tracking-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
-                    Join the Growth Corridor
-                  </div>
-                </div>
               </Link>
 
               {/* Desktop Navigation (Exact 7 Links from PDF) */}

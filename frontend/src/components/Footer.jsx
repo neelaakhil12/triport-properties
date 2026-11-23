@@ -32,20 +32,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-slate-800">
           {/* Column 1: Brand & Advisory Mission (lg:col-span-4) */}
           <div className="lg:col-span-4 space-y-4">
-            <Link to="/" className="inline-flex flex-col items-start group py-1 text-left">
+            <Link to="/" className="inline-block group py-1">
               <img
                 src="/logo.png"
                 alt="Triport Properties"
                 className="h-16 sm:h-20 md:h-24 w-auto object-contain drop-shadow-md"
               />
-              <div className="pt-2 leading-tight select-none">
-                <div className="text-xs sm:text-[13px] md:text-sm font-bold text-white tracking-tight">
-                  Every Route Leads to Growth
-                </div>
-                <div className="text-[11px] sm:text-xs md:text-[13px] font-black text-[#FF6B00] tracking-tight">
-                  Join the Growth Corridor
-                </div>
-              </div>
             </Link>
             <p className="text-slate-300 text-sm leading-relaxed max-w-sm">
               Land and investment advisory for the green belt, industrial corridor, educational hub and port-led trade around Naidupeta.

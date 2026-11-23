@@ -237,8 +237,107 @@ const Home = () => {
       <section className="relative min-h-[680px] sm:min-h-[760px] lg:min-h-[820px] bg-[#08101E] text-white overflow-hidden flex items-center pt-28 sm:pt-36 lg:pt-40 pb-20 sm:pb-28">
         {/* Full-width vector artwork of the perspective highway and green agricultural parcels matching PDF */}
         <div className="absolute inset-0 z-0 pointer-events-none select-none">
+          {/* Mobile Optimized Highway Vector Artwork (Visible on screens < md) - Perfectly Centered, Never Cut Off */}
           <svg
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover md:hidden"
+            viewBox="0 0 600 1100"
+            preserveAspectRatio="xMidYMid slice"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="heroSkyMobile" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#08101E" />
+                <stop offset="40%" stopColor="#0D1C34" />
+                <stop offset="70%" stopColor="#1E3A5F" />
+                <stop offset="88%" stopColor="#8A3D12" />
+                <stop offset="100%" stopColor="#D97706" />
+              </linearGradient>
+
+              <radialGradient id="sunGlowMobile" cx="80%" cy="42%" r="28%">
+                <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.9" />
+                <stop offset="55%" stopColor="#D97706" stopOpacity="0.35" />
+                <stop offset="100%" stopColor="#08101E" stopOpacity="0" />
+              </radialGradient>
+
+              <linearGradient id="highwayAsphaltMobile" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#475569" />
+                <stop offset="100%" stopColor="#1E293B" />
+              </linearGradient>
+            </defs>
+
+            {/* Sky Background */}
+            <rect x="0" y="0" width="600" height="390" fill="url(#heroSkyMobile)" />
+
+            {/* Sun Glow on Far Right Horizon */}
+            <circle cx="480" cy="370" r="130" fill="url(#sunGlowMobile)" />
+
+            {/* Distant Hills / Horizon Line */}
+            <path
+              d="M 0 380 Q 150 365 300 375 T 600 370 L 600 390 L 0 390 Z"
+              fill="#183623"
+              opacity="0.95"
+            />
+
+            {/* Left Far Fields */}
+            <polygon points="0,380 290,380 240,500 0,530" fill="#2E5A2A" />
+            <polygon points="0,530 240,500 190,680 0,720" fill="#3D7336" />
+            <polygon points="0,720 190,680 140,1100 0,1100" fill="#295125" />
+
+            {/* Right Far Fields */}
+            <polygon points="310,380 600,380 600,530 360,500" fill="#3E7538" />
+            <polygon points="360,500 600,530 600,720 410,680" fill="#284E23" />
+            <polygon points="410,680 600,720 600,1100 460,1100" fill="#366831" />
+
+            {/* Centered Perspective Highway */}
+            <polygon points="292,375 308,375 460,1100 140,1100" fill="url(#highwayAsphaltMobile)" />
+
+            {/* Center Dashed Lane Line */}
+            <line
+              x1="300"
+              y1="375"
+              x2="300"
+              y2="1100"
+              stroke="#FFFFFF"
+              strokeWidth="4"
+              strokeDasharray="26 18"
+            />
+
+            {/* Yellow Highway Shoulders */}
+            <line x1="292" y1="375" x2="140" y2="1100" stroke="#F59E0B" strokeWidth="2.5" opacity="0.75" />
+            <line x1="308" y1="375" x2="460" y2="1100" stroke="#F59E0B" strokeWidth="2.5" opacity="0.75" />
+
+            {/* Field Grid Borders */}
+            <line x1="0" y1="530" x2="240" y2="500" stroke="#52944B" strokeWidth="1.5" opacity="0.4" />
+            <line x1="0" y1="720" x2="190" y2="680" stroke="#52944B" strokeWidth="1.5" opacity="0.4" />
+            <line x1="360" y1="500" x2="600" y2="530" stroke="#52944B" strokeWidth="1.5" opacity="0.4" />
+            <line x1="410" y1="680" x2="600" y2="720" stroke="#52944B" strokeWidth="1.5" opacity="0.4" />
+
+            {/* Location Pin Markers on Mobile */}
+            <g transform="translate(80, 600) scale(1)">
+              <circle cx="12" cy="12" r="12" fill="#FFFFFF" opacity="0.9" />
+              <path d="M12 4 C8 4 5 7 5 11 C5 15 12 22 12 22 C12 22 19 15 19 11 C19 7 16 4 12 4 Z" fill="#10B981" />
+              <circle cx="12" cy="10" r="3" fill="#FFFFFF" />
+            </g>
+            <g transform="translate(480, 580) scale(1)">
+              <circle cx="12" cy="12" r="12" fill="#FFFFFF" opacity="0.9" />
+              <path d="M12 4 C8 4 5 7 5 11 C5 15 12 22 12 22 C12 22 19 15 19 11 C19 7 16 4 12 4 Z" fill="#FF6B00" />
+              <circle cx="12" cy="10" r="3" fill="#FFFFFF" />
+            </g>
+            <g transform="translate(190, 440) scale(0.85)">
+              <circle cx="12" cy="12" r="12" fill="#FFFFFF" opacity="0.9" />
+              <path d="M12 4 C8 4 5 7 5 11 C5 15 12 22 12 22 C12 22 19 15 19 11 C19 7 16 4 12 4 Z" fill="#818CF8" />
+              <circle cx="12" cy="10" r="3" fill="#FFFFFF" />
+            </g>
+            <g transform="translate(380, 440) scale(0.85)">
+              <circle cx="12" cy="12" r="12" fill="#FFFFFF" opacity="0.9" />
+              <path d="M12 4 C8 4 5 7 5 11 C5 15 12 22 12 22 C12 22 19 15 19 11 C19 7 16 4 12 4 Z" fill="#38BDF8" />
+              <circle cx="12" cy="10" r="3" fill="#FFFFFF" />
+            </g>
+          </svg>
+
+          {/* Desktop Highway Vector Artwork (Visible on screens >= md) */}
+          <svg
+            className="w-full h-full object-cover hidden md:block"
             viewBox="0 0 1600 900"
             preserveAspectRatio="xMidYMid slice"
             xmlns="http://www.w3.org/2000/svg"
@@ -425,39 +524,78 @@ const Home = () => {
             </div>
 
             {/* Right Column: 4 Floating Dark Engine Cards matching PDF Page 1 */}
-            <div className="lg:col-span-5 space-y-3.5">
-              {growthEngines.map((engine, idx) => {
-                const isActive = activeEngine === idx;
-                return (
-                  <div
-                    key={engine.id}
-                    onClick={() => setActiveEngine(idx)}
-                    className={`p-4 sm:p-5 rounded-2xl cursor-pointer transition-all border backdrop-blur-md ${
-                      isActive
-                        ? 'bg-[#0B1528]/90 border-[#10B981] shadow-2xl translate-x-1.5 ring-1 ring-[#10B981]/50'
-                        : 'bg-[#0B1528]/70 border-white/10 hover:bg-[#0B1528]/85 hover:border-white/20'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <span
-                          className="w-3 h-3 rounded-full flex-shrink-0 shadow-sm"
-                          style={{ backgroundColor: engine.dotColor }}
-                        />
-                        <h3 className="font-bold text-sm sm:text-base text-white">
-                          {engine.name}
-                        </h3>
+            <div className="lg:col-span-5 pt-4 lg:pt-0">
+              {/* Mobile Swipeable Carousel (< lg) */}
+              <div className="flex lg:hidden overflow-x-auto pb-2 gap-3 snap-x snap-mandatory no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
+                {growthEngines.map((engine, idx) => {
+                  const isActive = activeEngine === idx;
+                  return (
+                    <div
+                      key={engine.id}
+                      onClick={() => setActiveEngine(idx)}
+                      className={`min-w-[270px] max-w-[310px] p-4 rounded-2xl cursor-pointer transition-all border backdrop-blur-md snap-start flex-shrink-0 ${
+                        isActive
+                          ? 'bg-[#0B1528]/95 border-[#10B981] shadow-xl ring-1 ring-[#10B981]/50'
+                          : 'bg-[#0B1528]/75 border-white/10 hover:bg-[#0B1528]/85'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2.5">
+                          <span
+                            className="w-2.5 h-2.5 rounded-full flex-shrink-0 shadow-sm"
+                            style={{ backgroundColor: engine.dotColor }}
+                          />
+                          <h3 className="font-bold text-sm text-white">
+                            {engine.name}
+                          </h3>
+                        </div>
+                        <span className="text-xs font-mono font-semibold text-slate-400">
+                          {engine.id}
+                        </span>
                       </div>
-                      <span className="text-xs font-mono font-semibold text-slate-400">
-                        {engine.id}
-                      </span>
+                      <p className="text-xs text-slate-300 pl-5 pt-1 line-clamp-2">
+                        {engine.subtitle}
+                      </p>
                     </div>
-                    <p className="text-xs text-slate-300 pl-6 pt-1">
-                      {engine.subtitle}
-                    </p>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
+
+              {/* Desktop Vertical 4-Card Stack (>= lg) */}
+              <div className="hidden lg:block space-y-3.5">
+                {growthEngines.map((engine, idx) => {
+                  const isActive = activeEngine === idx;
+                  return (
+                    <div
+                      key={engine.id}
+                      onClick={() => setActiveEngine(idx)}
+                      className={`p-4 sm:p-5 rounded-2xl cursor-pointer transition-all border backdrop-blur-md ${
+                        isActive
+                          ? 'bg-[#0B1528]/90 border-[#10B981] shadow-2xl translate-x-1.5 ring-1 ring-[#10B981]/50'
+                          : 'bg-[#0B1528]/70 border-white/10 hover:bg-[#0B1528]/85 hover:border-white/20'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <span
+                            className="w-3 h-3 rounded-full flex-shrink-0 shadow-sm"
+                            style={{ backgroundColor: engine.dotColor }}
+                          />
+                          <h3 className="font-bold text-sm sm:text-base text-white">
+                            {engine.name}
+                          </h3>
+                        </div>
+                        <span className="text-xs font-mono font-semibold text-slate-400">
+                          {engine.id}
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-300 pl-6 pt-1">
+                        {engine.subtitle}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
