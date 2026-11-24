@@ -1013,7 +1013,7 @@ const Home = () => {
                       <div className="text-xs text-slate-400">Farm land and open countryside around Naidupeta</div>
                     </div>
                   </div>
-                  <span className="text-xs font-mono font-bold text-emerald-400 bg-emerald-400/10 px-2.5 py-1 rounded-md">Local</span>
+                  <span className="text-xs font-mono font-bold text-emerald-400 bg-emerald-400/10 px-2.5 py-1 rounded-md">0–10 km</span>
                 </div>
 
                 <div className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800">
@@ -1024,7 +1024,7 @@ const Home = () => {
                       <div className="text-xs text-slate-400">Industrial and manufacturing belt</div>
                     </div>
                   </div>
-                  <span className="text-xs font-mono font-bold text-sky-400 bg-sky-400/10 px-2.5 py-1 rounded-md">25 - 45 km</span>
+                  <span className="text-xs font-mono font-bold text-sky-400 bg-sky-400/10 px-2.5 py-1 rounded-md">33–50 km</span>
                 </div>
 
                 <div className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800">
@@ -1035,18 +1035,18 @@ const Home = () => {
                       <div className="text-xs text-slate-400">National highway access for trucks, commuters and inter-city travel (NH 16)</div>
                     </div>
                   </div>
-                  <span className="text-xs font-mono font-bold text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded-md">Direct</span>
+                  <span className="text-xs font-mono font-bold text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded-md">0 km</span>
                 </div>
 
                 <div className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800">
                   <div className="flex items-center space-x-3">
                     <Compass className="w-5 h-5 text-teal-400" />
                     <div>
-                      <div className="text-sm font-bold text-white">Airport</div>
-                      <div className="text-xs text-slate-400">Tirupati Airport for domestic and regional connections</div>
+                      <div className="text-sm font-bold text-white">Airports</div>
+                      <div className="text-xs text-slate-400">Tirupati Intl (Renigunta) 55 km · Chennai Intl 135 km</div>
                     </div>
                   </div>
-                  <span className="text-xs font-mono font-bold text-teal-400 bg-teal-400/10 px-2.5 py-1 rounded-md">45 km</span>
+                  <span className="text-xs font-mono font-bold text-teal-400 bg-teal-400/10 px-2.5 py-1 rounded-md">55–135 km</span>
                 </div>
 
                 <div className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800">
@@ -1054,17 +1054,17 @@ const Home = () => {
                     <Ship className="w-5 h-5 text-blue-400" />
                     <div>
                       <div className="text-sm font-bold text-white">Ports</div>
-                      <div className="text-xs text-slate-400">Krishnapatnam, Dugarajapatnam and Ramayapatnam for trade and logistics</div>
+                      <div className="text-xs text-slate-400">Krishnapatnam 62 km, Dugarajapatnam 45 km, Ramayapatnam 150 km</div>
                     </div>
                   </div>
-                  <span className="text-xs font-mono font-bold text-blue-400 bg-blue-400/10 px-2.5 py-1 rounded-md">35 - 70 km</span>
+                  <span className="text-xs font-mono font-bold text-blue-400 bg-blue-400/10 px-2.5 py-1 rounded-md">45–62 km</span>
                 </div>
               </div>
 
               <div className="pt-2">
                 <Link
                   to="/locations"
-                  className="inline-flex items-center space-x-2 bg-[#FF6B00] hover:bg-[#e05e00] text-white px-6 py-3 rounded-full font-bold text-sm transition-all"
+                  className="inline-flex items-center space-x-2 bg-[#FF6B00] hover:bg-[#e05e00] text-white px-6 py-3 rounded-full font-bold text-sm transition-all shadow-md hover:shadow-lg"
                 >
                   <span>Explore Locations</span>
                   <ArrowRight className="w-4 h-4" />
@@ -1072,57 +1072,14 @@ const Home = () => {
               </div>
             </div>
 
+            {/* Right: Official Corridor Schematic Map from Client Design PDF */}
             <div className="lg:col-span-6">
-              <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 relative overflow-hidden">
-                <div className="text-xs font-mono text-slate-500 mb-4 flex items-center justify-between">
-                  <span>Schematic · not to scale</span>
-                  <span className="text-slate-400">Bay of Bengal (East)</span>
-                </div>
-
-                <svg className="w-full h-80 sm:h-96" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M 320 0 L 400 0 L 400 400 L 330 400 Z" fill="#0C2340" opacity="0.6" />
-                  <text x="350" y="200" fill="#38BDF8" fontSize="11" opacity="0.4" transform="rotate(90 350,200)">Bay of Bengal</text>
-
-                  <line x1="280" y1="30" x2="290" y2="380" stroke="#F59E0B" strokeWidth="4" />
-                  <text x="240" y="30" fill="#F59E0B" fontSize="10" fontWeight="bold">NH 16</text>
-
-                  <line x1="285" y1="180" x2="140" y2="280" stroke="#38BDF8" strokeWidth="2" strokeDasharray="4 4" />
-
-                  <circle cx="282" cy="50" r="5" fill="#EF4444" />
-                  <text x="150" y="55" fill="#E2E8F0" fontSize="10">▲ Ramayapatnam Port</text>
-
-                  <circle cx="284" cy="110" r="6" fill="#F59E0B" />
-                  <text x="175" y="115" fill="#E2E8F0" fontSize="11" fontWeight="bold">Krishnapatnam Port</text>
-
-                  <circle cx="285" cy="180" r="8" fill="#10B981" />
-                  <text x="195" y="185" fill="#10B981" fontSize="12" fontWeight="bold">Naidupeta (Base)</text>
-
-                  <circle cx="310" cy="220" r="5" fill="#F59E0B" />
-                  <text x="210" y="225" fill="#E2E8F0" fontSize="10">Dugarajapatnam Port</text>
-
-                  <circle cx="287" cy="250" r="6" fill="#38BDF8" />
-                  <text x="205" y="255" fill="#E2E8F0" fontSize="11">Sullurpeta (Industry)</text>
-
-                  <circle cx="288" cy="310" r="6" fill="#38BDF8" />
-                  <text x="220" y="315" fill="#E2E8F0" fontSize="11">Tada (Industry)</text>
-
-                  <text x="250" y="375" fill="#94A3B8" fontSize="10">Chennai (South) ↓</text>
-
-                  <circle cx="140" cy="280" r="9" fill="#818CF8" />
-                  <text x="70" y="275" fill="#818CF8" fontSize="12" fontWeight="bold">Tirupati</text>
-                  <text x="45" y="290" fill="#94A3B8" fontSize="9">Educational Hub</text>
-
-                  <circle cx="180" cy="320" r="5" fill="#38BDF8" />
-                  <text x="125" y="335" fill="#38BDF8" fontSize="10">✈ Tirupati Airport</text>
-                </svg>
-
-                <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400 pt-4 border-t border-slate-800">
-                  <span className="flex items-center space-x-1.5"><span className="w-2.5 h-2.5 rounded-full bg-emerald-400" /><span>Green belt</span></span>
-                  <span className="flex items-center space-x-1.5"><span className="w-2.5 h-2.5 rounded-full bg-sky-400" /><span>Industrial corridor</span></span>
-                  <span className="flex items-center space-x-1.5"><span className="w-2.5 h-2.5 rounded-full bg-indigo-400" /><span>Educational hub</span></span>
-                  <span className="flex items-center space-x-1.5"><span className="w-2.5 h-2.5 rounded-full bg-amber-400" /><span>Ports & trade</span></span>
-                  <span className="flex items-center space-x-1.5"><span className="w-3 h-1 bg-amber-500" /><span>NH 16</span></span>
-                </div>
+              <div className="bg-[#070F1E] border border-slate-800 rounded-3xl overflow-hidden shadow-2xl p-2 sm:p-3 group">
+                <img
+                  src="/images/triport-corridor-map.png"
+                  alt="Triport Corridor Map - Schematic Diagram"
+                  className="w-full h-auto object-contain rounded-2xl group-hover:scale-[1.01] transition-transform duration-500"
+                />
               </div>
             </div>
           </div>
